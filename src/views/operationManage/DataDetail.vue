@@ -72,12 +72,8 @@
     </Row>
 </div>
  <div class="animated fadeIn">
-    <div class="card-columns cols-2" style="">
-      <b-card header="Line Chart">
-        <div class="chart-wrapper">
-          <line-chart/>
-        </div>
-      </b-card>
+    <div class="card-columns cols-2" >
+      <line-chart/>
     </div>
   </div>
 </div>
@@ -212,7 +208,6 @@ export default {
     border-bottom-width: 0.5px;
 	border-bottom-style: solid;
 	border-bottom-color: #e5e5e5;
-  
 }
 </style>
 
