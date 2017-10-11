@@ -13,44 +13,52 @@ const Login = _import('login/index');
 Vue.use(Router);
 
 export const constantRouterMap = [
-  { path: '/login', component: Login, hidden: true },
-  {
-    path: '/pages',
-    redirect: '/pages/p404',
-    name: 'Pages',
-    component: {
-      render(c) { return c('router-view') }
-    },
-    children: [{ path: '404', name: 'Page404', component: _import('errorPages/Page404') },
-      { path: '500', name: 'Page500', component: _import('errorPages/Page404') },
-    ]
-  }
+    { path: '/login', component: Login, hidden: true },
+    {
+        path: '/pages',
+        redirect: '/pages/p404',
+        name: 'Pages',
+        component: {
+            render(c) { return c('router-view') }
+        },
+        children: [{ path: '404', name: 'Page404', component: _import('errorPages/Page404') },
+            { path: '500', name: 'Page500', component: _import('errorPages/Page404') },
+        ]
+    }
 ]
 
 export default new Router({
-  mode: 'hash',
-  linkActiveClass: 'open active',
-  scrollBehavior: () => ({ y: 0 }),
-  routes: constantRouterMap
+    mode: 'hash',
+    linkActiveClass: 'open active',
+    scrollBehavior: () => ({ y: 0 }),
+    routes: constantRouterMap
 });
 
-export const asyncRouterMap = [
-
-  {
-    path: '/',
-    redirect: '/dashboard',
-    name: '首页',
-    component: Full,
-    hidden: false,
-    children: [
-      { path: '/dashboard', name: 'Dashboard', icon: 'speedometer', component: _import('Dashboard') },
-      { path: '/table', name: '表格综合实例', icon: 'ios-paper', component: _import('Table'), meta: { role: ['admin'] } },
-      { path: '/tabledetail/:id', name: 'TableDetail', hidden: true, component: _import('TableDetail') },
-      { path: '/tinymce', name: 'Tinymce编辑器', icon: "android-document", component: _import('Tinymce') },
-      { path: '/markdown', name: 'Markdown', icon: "android-list", component: _import('Markdown') },
-
-    ]
-  },
-  { path: '*', redirect: '/pages/404', hidden: true }
+export const asyncRouterMap = [{
+        path: '/',
+        redirect: '/dashboard',
+        name: '首页',
+        component: Full,
+        hidden: false,
+        children: [{
+                path: '/operation-manage',
+                name: '运营管理',
+                icon: 'android-list',
+                component: _import('operationManage/DataDetail'),
+                children: [
+                    { path: 'outline', name: '数据概览', icon: 'ios-paper', component: _import('operationManage/DataDetail'), meta: { role: ['admin'] } },
+                    { path: 'tabledetail/:id', name: '用户数据', hidden: true, component: _import('operationManage/DataDetail') },
+                    { path: 'tinymce', name: '订单数据', icon: 'android-document', component: _import('operationManage/DataDetail') },
+                    { path: 'markdown', name: '收入数据', icon: 'android-list', component: _import('operationManage/DataDetail') }
+                ]
+            },
+            { path: '/dashboard', name: 'Dashboard', icon: 'speedometer', component: _import('Dashboard') },
+            { path: '/table', name: '表格综合实例', icon: 'ios-paper', component: _import('Table'), meta: { role: ['admin'] } },
+            { path: '/tabledetail/:id', name: 'TableDetail', hidden: true, component: _import('TableDetail') },
+            { path: '/tinymce', name: 'Tinymce编辑器', icon: "android-document", component: _import('Tinymce') },
+            { path: '/markdown', name: 'Markdown', icon: "android-list", component: _import('Markdown') },
+        ]
+    },
+    { path: '*', redirect: '/pages/404', hidden: true }
 
 ];
