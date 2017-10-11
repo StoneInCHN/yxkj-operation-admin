@@ -6,8 +6,10 @@ import Full from '@/containers/Full'
 // Views - Pages
 import Page404 from '@/views/errorPages/Page404'
 import Page500 from '@/views/errorPages/Page500'
-
-
+import DataDetail from '@/views/operationManage/DataDetail'
+import UserData from '@/views/operationManage/UserData'
+import OrderData from '@/views/operationManage/OrderData'
+import IncomeData from '@/views/operationManage/IncomeData'
 /* login */
 const Login = _import('login/index');
 Vue.use(Router);
@@ -44,12 +46,15 @@ export const asyncRouterMap = [{
                 path: '/operation-manage',
                 name: '运营管理',
                 icon: 'android-list',
-                component: _import('operationManage/DataDetail'),
+                redirect: '/operation-manage/outline',
+                component: {
+                    render(c) { return c('router-view') }
+                },
                 children: [
-                    { path: 'outline', name: '数据概览', icon: 'ios-paper', component: _import('operationManage/DataDetail'), meta: { role: ['admin'] } },
-                    { path: 'tabledetail/:id', name: '用户数据', hidden: true, component: _import('operationManage/DataDetail') },
-                    { path: 'tinymce', name: '订单数据', icon: 'android-document', component: _import('operationManage/DataDetail') },
-                    { path: 'markdown', name: '收入数据', icon: 'android-list', component: _import('operationManage/DataDetail') }
+                    { path: 'outline', name: '数据概览', icon: 'ios-paper', component: DataDetail },
+                    { path: 'user-data', name: '用户数据', icon: 'android-document', component: UserData },
+                    { path: 'order-data', name: '订单数据', icon: 'android-document', component: OrderData },
+                    { path: 'income-data', name: '收入数据', icon: 'android-list', component: IncomeData }
                 ]
             },
             { path: '/dashboard', name: 'Dashboard', icon: 'speedometer', component: _import('Dashboard') },
