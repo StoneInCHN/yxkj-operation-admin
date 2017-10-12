@@ -10,6 +10,14 @@ import DataDetail from '@/views/operationManage/DataDetail'
 import UserData from '@/views/operationManage/UserData'
 import OrderData from '@/views/operationManage/OrderData'
 import IncomeData from '@/views/operationManage/IncomeData'
+
+import Container from '@/views/container/Index'
+import ReplenishMessage from '@/views/container/ReplenishMessage'
+import GoodsManage from '@/views/goodsManage/Index'
+import BulterManage from '@/views/roleManage/BulterManage'
+import PropertyManage from '@/views/roleManage/PropertyManage'
+
+
 /* login */
 const Login = _import('login/index');
 Vue.use(Router);
@@ -38,7 +46,7 @@ export default new Router({
 
 export const asyncRouterMap = [{
         path: '/',
-        redirect: '/dashboard',
+        redirect: '/operation-manage',
         name: '首页',
         component: Full,
         hidden: false,
@@ -57,13 +65,76 @@ export const asyncRouterMap = [{
                     { path: 'income-data', name: '收入数据', icon: 'android-list', component: IncomeData }
                 ]
             },
-            { path: '/dashboard', name: 'Dashboard', icon: 'speedometer', component: _import('Dashboard') },
-            { path: '/table', name: '表格综合实例', icon: 'ios-paper', component: _import('Table'), meta: { role: ['admin'] } },
-            { path: '/tabledetail/:id', name: 'TableDetail', hidden: true, component: _import('TableDetail') },
-            { path: '/tinymce', name: 'Tinymce编辑器', icon: "android-document", component: _import('Tinymce') },
-            { path: '/markdown', name: 'Markdown', icon: "android-list", component: _import('Markdown') },
+            {
+                path: '/container',
+                name: '优享空间',
+                icon: 'speedometer',
+                component: Container,
+            },
+            {
+                path: '/goods',
+                name: '商品管理',
+                icon: 'speedometer',
+                component: GoodsManage
+            },
+            {
+                path: '/role',
+                name: '角色管理',
+                icon: 'speedometer',
+                component: {
+                    render(c) { return c('router-view') }
+                },
+                redirect: '/role/bulter',
+                children: [
+                    { path: 'bulter', name: '管家管理', icon: 'ios-paper', component: BulterManage },
+                    { path: 'property', name: '物业管理', icon: 'ios-paper', component: PropertyManage }
+                ]
+            },
+            {
+                path: '/advertisement',
+                name: '广告管理',
+                icon: 'speedometer',
+                component: GoodsManage
+            },
+            {
+                path: '/sysytem',
+                name: '系统管理',
+                icon: 'speedometer',
+                component: GoodsManage
+            },
+            {
+                path: '/property-platform',
+                name: '物业平台',
+                icon: 'speedometer',
+                component: GoodsManage
+            },
+            {
+                path: '/property-platform',
+                name: '物业平台',
+                icon: 'speedometer',
+                component: GoodsManage
+            },
+            {
+                path: '/exceptions',
+                name: '异常管理',
+                icon: 'speedometer',
+                component: GoodsManage
+            },
+            {
+                path: '/messages',
+                name: '消息',
+                icon: 'speedometer',
+                component: GoodsManage
+            },
+            {
+                path: '/replenish-message',
+                name: '补货信息',
+                component: ReplenishMessage,
+                hidden: true
+            }
         ]
     },
-    { path: '*', redirect: '/pages/404', hidden: true }
+
+    // { path: '*', redirect: '/pages/404', hidden: true }
 
 ];
