@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <div class="h6">场景管理</div>
+<div> 
+    <div class="h6">新增场景</div>
       <Form :label-width="100" label-position="left">
         <FormItem label="场景编号:">
             <Input  placeholder="请输入" style="width:200px;" value="223" disabled></Input>
@@ -54,7 +54,7 @@
             </Select>
          </FormItem>
         <FormItem label="货柜音量: ">
-            <Row gutter="5">
+            <Row :gutter=5>
             <Col span="1">
                 <Button>
                     <Icon type="minus-round"></Icon>
@@ -79,7 +79,7 @@
             </Select>
         </FormItem>
         <FormItem label="默认重启时间：">
-            <TimePicker :value="value1" format="HH点mm分ss秒" placeholder="选择时间" style="width: 168px"></TimePicker>
+            <TimePicker format="HH点mm分ss秒" placeholder="选择时间" style="width: 168px"></TimePicker>
         </FormItem>
         <FormItem label="是否含微仓：">
             <Select placeholder="是"  style="width:200px;">
@@ -98,11 +98,13 @@
 <script>
     export default {
           data () {
-            
-        },
+            return {
+                
+            }
+        }
     }
 </script>
 
 <style scoped>
-</style>
 
+</style>

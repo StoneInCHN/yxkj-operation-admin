@@ -1,7 +1,7 @@
 <template>
 <div>
     <div>优享空间</div>
-    <Form :model="formItem" :label-width="80" :Input-width="1030" label-position="right">
+    <Form  :label-width="80" :Input-width="1030" label-position="right">
         <Row :gutter="4">
             <Col span="4">
                 <Form-item label="优享空间：">
@@ -18,14 +18,14 @@
             </Col>
         </Row>
      </Form>
-     <div>
+     <div style="">
         <h5 style="float: left">优享空间列表</h5>
         <div style="float: left; margin-left: 80px;"> 
              <Button type="info"  size="small" @click="replenishMessageAction()">补货信息</Button>
              <Button type="success" size="small" @click="qrCodeManageAction()">二维码管理</Button>
         </div>
        <div style="float: right">
-            <Button type="warning" size="small" @click="addNewContainerAction()">新增</Button>
+            <Button type="success" size="small" @click="addNewSecnceAction()">新增</Button>
             <Button type="error" size="small" @click="modalDelete = true">删除</Button>
                 <Modal v-model="modalDelete" width="360">
                     <p slot="header" style="color:#f60;text-align:center">
@@ -40,11 +40,11 @@
                         <Button type="error" size="large" long :loading="modal_loading" @click="delteContainerAction()">删除</Button>
                     </div>
                 </Modal>
-            <Button type="primary" size="small">编辑</Button>
+            <Button type="primary" size="small" @click="editSecnceAction()">编辑</Button>
         </div>
      </div>
-     <div style="clear:both; margin-top: 40px;">
-        <Table border ref="selection" :columns="columns4" :data="data1"></Table>
+     <div style="margin-top: 40px;">
+        <Table border ref="selection" :columns="columns4" :data="data1" ></Table>
          <Page :current="2" :total="50" simple style="float:right; margin-top:10px;"></Page>
     </div>
 </div>
@@ -84,7 +84,23 @@
                     },
                     {
                         title: '操作',
-                        key: 'operation'
+                        key: 'action',
+                        render: (h, params) => {
+                          return  h('Button', {
+                                props: {
+                                    type: 'primary',
+                                    size: 'small'
+                                },
+                                style: {
+                                    marginRight: '5px'
+                                },
+                                on: {
+                                    click: () => {
+                                        this.containerManageAction(params.index)
+                                    }
+                                }
+                            }, '货柜管理');
+                        }
                     },
                 ],
                 data1: [
@@ -93,18 +109,14 @@
                         name: '王小明',
                         opne_up_time: '北京市朝阳区芍药居',
                         containers_count: '北京市朝阳区芍药居',
-                        is_micro_container: 18,
-                        operation: '北京市朝阳区芍药居'
-
+                        is_micro_container: 18
                     },
                     {
                         num: '123',
                         name: '王小明',
                         opne_up_time: '北京市朝阳区芍药居',
                         containers_count: '北京市朝阳区芍药居',
-                        is_micro_container: 18,
-                        operation: '北京市朝阳区芍药居'
-
+                        is_micro_container: 18
                     }
                 ]
             }
@@ -120,9 +132,14 @@
                         path: 'QRCode-manage'
                     })
                 },
-            addNewContainerAction() {
+            addNewSecnceAction() {
                     this.$router.push({
-                        path: 'add-new-container'
+                        path: 'add-new-sence'
+                    })
+            },
+             editSecnceAction() {
+                    this.$router.push({
+                        path: 'edit-sence'
                     })
             },
             delteContainerAction() {
@@ -133,6 +150,11 @@
                     this.modalDelete = false
                     this.$Message.success('删除成功');
                 }, 2000);
+            },
+            containerManageAction(index) {
+                 this.$router.push({
+                        path: 'container-manage'
+                    })
             }
         }
 

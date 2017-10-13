@@ -10,15 +10,17 @@ import DataDetail from '@/views/operationManage/DataDetail'
 import UserData from '@/views/operationManage/UserData'
 import OrderData from '@/views/operationManage/OrderData'
 import IncomeData from '@/views/operationManage/IncomeData'
-
-import Container from '@/views/container/Index'
-import ReplenishMessage from '@/views/container/ReplenishMessage'
-import QRCodeManage from '@/views/container/QRCodeManage'
-import AddNewContainer from '@/views/container/AddNewContainer'
+import Container from '@/views/sence/Index'
+import ReplenishMessage from '@/views/sence/ReplenishMessage'
+import QRCodeManage from '@/views/sence/QRCodeManage'
+import AddNewContainer from '@/views/sence/AddNewContainer'
+import EditContainer from '@/views/sence/EditContainer'
+import ContainerManage from '@/views/sence/ContainerManage'
 import GoodsManage from '@/views/goodsManage/Index'
 import BulterManage from '@/views/roleManage/BulterManage'
 import PropertyManage from '@/views/roleManage/PropertyManage'
-
+import EditSence from '@/views/container/EditSence'
+import AddNewSence from '@/views/container/AddNewSence'
 
 /* login */
 const Login = _import('login/index');
@@ -141,14 +143,38 @@ export const asyncRouterMap = [{
                 hidden: true
             },
             {
-                path: '/add-new-container',
-                name: '场景管理',
+                path: '/add-new-sence',
+                name: '新增场景',
+                component: AddNewSence,
+                hidden: true
+            },
+            {
+                path: '/edit-sence',
+                name: '编辑场景',
+                component: EditSence,
+                hidden: true
+            },
+            {
+                path: '/container-manage',
+                name: '货柜管理',
+                component: ContainerManage,
+                hidden: true
+            },
+            {
+                path: '/edit-container',
+                name: '编辑货柜',
+                component: EditContainer,
+                hidden: true
+            },
+            {
+                path: '/add-container',
+                name: '新增货柜',
                 component: AddNewContainer,
                 hidden: true
             }
         ]
     },
 
-    { path: '*', redirect: '/pages/404', hidden: true }
+    // { path: '*', redirect: '/pages/404', hidden: true }
 
 ];
