@@ -13,6 +13,8 @@ import IncomeData from '@/views/operationManage/IncomeData'
 
 import Container from '@/views/container/Index'
 import ReplenishMessage from '@/views/container/ReplenishMessage'
+import QRCodeManage from '@/views/container/QRCodeManage'
+import AddNewContainer from '@/views/container/AddNewContainer'
 import GoodsManage from '@/views/goodsManage/Index'
 import BulterManage from '@/views/roleManage/BulterManage'
 import PropertyManage from '@/views/roleManage/PropertyManage'
@@ -131,10 +133,22 @@ export const asyncRouterMap = [{
                 name: '补货信息',
                 component: ReplenishMessage,
                 hidden: true
+            },
+            {
+                path: '/QRCode-manage',
+                name: '二维码管理',
+                component: QRCodeManage,
+                hidden: true
+            },
+            {
+                path: '/add-new-container',
+                name: '场景管理',
+                component: AddNewContainer,
+                hidden: true
             }
         ]
     },
 
-    // { path: '*', redirect: '/pages/404', hidden: true }
+    { path: '*', redirect: '/pages/404', hidden: true }
 
 ];

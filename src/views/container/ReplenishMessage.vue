@@ -6,7 +6,7 @@
       <Row type="flex">
           <Col span="4" order="1">
             <FormItem label="开始日期">
-                  <DatePicker type="date" placeholder="选择日期" ></DatePicker>
+                <DatePicker type="date" placeholder="选择日期" ></DatePicker>
               </FormItem>
           </Col>
           <Col span="4" order="2">
@@ -28,13 +28,13 @@
       </Row>
       <Row>
         <Col span="6">
-              <FormItem label="补货查询：" prop="name">
-                  <Input  placeholder="请输入商品名称进行查询"></Input>
-                </FormItem>
+            <FormItem label="补货查询：" prop="name">
+                <Input  placeholder="请输入商品名称进行查询"></Input>
+              </FormItem>
           </Col>
           <Col span="6">
             <FormItem >
-                <Button type="primary" icon="ios-search">搜索</Button>
+              <Button type="primary" icon="ios-search">搜索</Button>
             </FormItem>
           </Col>
       </Row>

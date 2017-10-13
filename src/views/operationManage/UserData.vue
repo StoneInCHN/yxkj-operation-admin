@@ -1,6 +1,6 @@
 <template>
 <div>
-    <div>用户数据</div>
+    <div class="h6">用户数据</div>
     <div class="form-container">
      <Form label-width="80">
              <Row type="flex">

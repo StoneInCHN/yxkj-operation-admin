@@ -1,6 +1,6 @@
 <template>
 <div>
-    <div>订单数据</div>
+    <div class="h6">订单数据</div>
     <div class="form-container">
      <Form label-width="80">
      <Row type="flex">

@@ -22,18 +22,29 @@
         <h5 style="float: left">优享空间列表</h5>
         <div style="float: left; margin-left: 80px;"> 
              <Button type="info"  size="small" @click="replenishMessageAction()">补货信息</Button>
-             <Button type="success" size="small">二维码管理</Button>
+             <Button type="success" size="small" @click="qrCodeManageAction()">二维码管理</Button>
         </div>
        <div style="float: right">
-            <Button type="warning" size="small">新增</Button>
-            <Button type="error" size="small">删除</Button>
+            <Button type="warning" size="small" @click="addNewContainerAction()">新增</Button>
+            <Button type="error" size="small" @click="modalDelete = true">删除</Button>
+                <Modal v-model="modalDelete" width="360">
+                    <p slot="header" style="color:#f60;text-align:center">
+                        <Icon type="information-circled"></Icon>
+                        <span>确认删除选中的优享空间吗？</span>
+                    </p>
+                    <div style="text-align:center">
+                        <p>删除后，将无法恢复</p>
+                        <p>是否继续删除？</p>
+                    </div>
+                    <div slot="footer">
+                        <Button type="error" size="large" long :loading="modal_loading" @click="delteContainerAction()">删除</Button>
+                    </div>
+                </Modal>
             <Button type="primary" size="small">编辑</Button>
         </div>
      </div>
      <div style="clear:both; margin-top: 40px;">
         <Table border ref="selection" :columns="columns4" :data="data1"></Table>
-        <Button @click="handleSelectAll(true)">设置全选</Button>
-        <Button @click="handleSelectAll(false)">取消全选</Button>
          <Page :current="2" :total="50" simple style="float:right; margin-top:10px;"></Page>
     </div>
 </div>
@@ -43,6 +54,8 @@
     export default {
             data () {
             return {
+                modalDelete: false,
+                modal_loading: false,
                 columns4: [
                     {
                         type: 'selection',
@@ -101,7 +114,26 @@
                     this.$router.push({
                         path: 'replenish-message'
                     })
-                }
+                },
+            qrCodeManageAction() {
+                    this.$router.push({
+                        path: 'QRCode-manage'
+                    })
+                },
+            addNewContainerAction() {
+                    this.$router.push({
+                        path: 'add-new-container'
+                    })
+            },
+            delteContainerAction() {
+                console.log('delteContainerAction')
+                this.modal_loading = true
+                setTimeout(() => {
+                    this.modal_loading = false;
+                    this.modalDelete = false
+                    this.$Message.success('删除成功');
+                }, 2000);
+            }
         }
 
     }

@@ -1,6 +1,6 @@
 <template>
 <div>
-    <div>商品收入</div>
+    <div class="h6">商品收入</div>
     <div class="form-container">
      <Form label-width="80">
      <Row type="flex">
@@ -44,10 +44,9 @@
         <div style="margin-left:15px;">
              <span>收入查询： </span>  <Input v-model="value" placeholder="请输入商品名称/商品编号" style="width: 300px"></Input>
         </div>
-        
          </Col>
          <Col span="6">
-            <Button type="ghost" icon="ios-search">搜索</Button>
+            <Button type="primary" icon="ios-search" >搜索</Button>
          </Col>
     </Row>
     </Form>

@@ -1,8 +1,7 @@
 <template>
 <div class="container">
-<div>数据详情</div>
-<div>优享空间：香年广场T3-1 编号：1000000001</div>
-
+<div class="h6">数据详情</div>
+<div class="h6">优享空间：香年广场T3-1 编号：1000000001</div>
 <div class="data-container">
     <div class="section-title">基本数据</div>
     <div>
