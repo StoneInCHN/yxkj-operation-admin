@@ -19,9 +19,10 @@ import ContainerManage from '@/views/sence/ContainerManage'
 import GoodsManage from '@/views/goodsManage/Index'
 import BulterManage from '@/views/roleManage/BulterManage'
 import PropertyManage from '@/views/roleManage/PropertyManage'
-import EditSence from '@/views/container/EditSence'
-import AddNewSence from '@/views/container/AddNewSence'
-
+import EditSence from '@/views/sence/EditSence'
+import AddNewSence from '@/views/sence/AddNewSence'
+import WarningValueManage from '@/views/sence/WarningValueManage'
+import ContainerTypeManage from '@/views/sence/ContainerTypeManage'
 /* login */
 const Login = _import('login/index');
 Vue.use(Router);
@@ -70,7 +71,7 @@ export const asyncRouterMap = [{
                 ]
             },
             {
-                path: '/container',
+                path: '/sence',
                 name: '优享空间',
                 icon: 'speedometer',
                 component: Container,
@@ -171,7 +172,19 @@ export const asyncRouterMap = [{
                 name: '新增货柜',
                 component: AddNewContainer,
                 hidden: true
-            }
+            },
+            {
+                path: '/waring-value-manage',
+                name: '预警值管理',
+                component: WarningValueManage,
+                hidden: true
+            },
+            {
+                path: '/container-type-manage',
+                name: '货柜类型管理',
+                component: ContainerTypeManage,
+                hidden: true
+            },
         ]
     },
 

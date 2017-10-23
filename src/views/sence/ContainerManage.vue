@@ -131,6 +131,16 @@
             },
             containerManageAction(index) {
                 console.log(index)
+            },
+            warningSettingAction() {
+                this.$router.push({
+                        path: 'waring-value-manage'
+                    })
+            },
+            containerTypeAction() {
+                this.$router.push({
+                        path: 'container-type-manage'
+                    })
             }
         }
 

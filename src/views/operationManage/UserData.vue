@@ -2,23 +2,21 @@
 <div>
     <div class="h6">用户数据</div>
     <div class="form-container">
-     <Form label-width="80">
-             <Row type="flex">
-        <Col span="4" order="1">
-           <div style="margin-left:-10px;">
-                <FormItem label="开始日期">
+     <Form label-width="100" label-position="left">
+    <Row type="flex" :gutter="20">
+        <Col span="6" order="1">
+            <FormItem label="开始日期">
                 <DatePicker type="date" placeholder="选择日期" ></DatePicker>
             </FormItem>
-           </div>
         </Col>
-        <Col span="4" order="2">
+        <Col span="6">
             <FormItem label="结束日期">
                 <DatePicker type="date" placeholder="选择日期" ></DatePicker>
             </FormItem>
         </Col>
     </Row>
     <Row>
-        <Col span="6">
+        <Col span="5">
             <FormItem label="选择优享空间">
                 <Select placeholder="请选择">
                     <Option value="beijing">北京市</Option>
@@ -27,10 +25,15 @@
                 </Select>
             </FormItem>
         </Col>
-        <Col span="6">
-        <Button type="ghost" icon="ios-search">搜索</Button>
-         </Col>
+        <Col span="5">
+         <div style="margin-left:-60px;">  
+            <FormItem>
+                <Button type="primary" icon="ios-search">搜索</Button>
+            </FormItem>
+            </div>
+        </Col>
     </Row>
+    
     </Form>
     </div>
     <div>

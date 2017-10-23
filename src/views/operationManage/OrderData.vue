@@ -2,14 +2,12 @@
 <div>
     <div class="h6">订单数据</div>
     <div class="form-container">
-     <Form label-width="80">
-     <Row type="flex">
+     <Form label-width="80" label-position="left">
+     <Row type="flex" :gutter="20">
         <Col span="4" order="1">
-           <div style="margin-left:-10px;">
-                <FormItem label="开始日期">
-                <DatePicker type="date" placeholder="选择日期" ></DatePicker>
-            </FormItem>
-           </div>
+            <FormItem label="开始日期">
+            <DatePicker type="date" placeholder="选择日期" ></DatePicker>
+        </FormItem>
         </Col>
         <Col span="4" order="2">
             <FormItem label="结束日期">

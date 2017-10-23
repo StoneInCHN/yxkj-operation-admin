@@ -1,20 +1,19 @@
 <template>
 <div>
     <div>优享空间</div>
-    <Form  :label-width="80" :Input-width="1030" label-position="right">
+    <Form  :label-width="80" :Input-width="100" label-position="right">
         <Row :gutter="4">
-            <Col span="4">
+            <Col span="6">
                 <Form-item label="优享空间：">
                     <Input  placeholder="请输入优享空间地址或编号" ></Input>
                 </Form-item>
             </Col>
             <Col span="4">
-            <div style="margin-left:-70px;">  
+            <div style="margin-left:-10px;">  
                 <Form-item>
                     <Button type="primary" icon="ios-search" >搜索</Button>
                 </Form-item>
-                </div>
-            
+            </div>
             </Col>
         </Row>
      </Form>

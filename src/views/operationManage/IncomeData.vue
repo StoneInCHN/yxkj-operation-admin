@@ -2,14 +2,12 @@
 <div>
     <div class="h6">商品收入</div>
     <div class="form-container">
-     <Form label-width="80">
-     <Row type="flex">
-        <Col span="4" order="1">
-           <div style="margin-left:-10px;">
-                <FormItem label="开始日期">
+     <Form label-width="80" label-position="left">
+     <Row type="flex" :gutter="20">
+        <Col span="4" order="1" >
+            <FormItem label="开始日期">
                 <DatePicker type="date" placeholder="选择日期" ></DatePicker>
             </FormItem>
-           </div>
         </Col>
         <Col span="4" order="2">
             <FormItem label="结束日期">
@@ -17,38 +15,24 @@
             </FormItem>
         </Col>
     </Row>
-    <Row>
-        <Col span="6">
-            <FormItem label="商品种类:">
-                <Select placeholder="请选择">
+    <FormItem label="商品种类:">
+        <Select placeholder="请选择" style="width:200px;">
+            <Option value="beijing">北京市</Option>
+            <Option value="shanghai">上海市</Option>
+            <Option value="shenzhen">深圳市</Option>
+        </Select>
+    </FormItem>
+    <FormItem label="优享空间:" >
+                <Select placeholder="支付方式"  style="width:200px;">
                     <Option value="beijing">北京市</Option>
                     <Option value="shanghai">上海市</Option>
                     <Option value="shenzhen">深圳市</Option>
                 </Select>
-            </FormItem>
-         </Col>
-    </Row>
-     <Row>
-        <Col span="6">
-            <FormItem label="优享空间:">
-                <Select placeholder="支付方式">
-                    <Option value="beijing">北京市</Option>
-                    <Option value="shanghai">上海市</Option>
-                    <Option value="shenzhen">深圳市</Option>
-                </Select>
-             </FormItem>
-         </Col>
-    </Row>
-    <Row>
-        <Col span="6">
-        <div style="margin-left:15px;">
-             <span>收入查询： </span>  <Input v-model="value" placeholder="请输入商品名称/商品编号" style="width: 300px"></Input>
-        </div>
-         </Col>
-         <Col span="6">
-            <Button type="primary" icon="ios-search" >搜索</Button>
-         </Col>
-    </Row>
+    </FormItem>
+    <FormItem label="收入查询：:">
+        <Input v-model="value" placeholder="请输入商品名称/商品编号" style="width: 300px"></Input>
+        <Button type="primary" icon="ios-search" >搜索</Button>
+    </FormItem>
     </Form>
       <div style="margin-top:15px;">
           <Table border :columns="columns1" :data="data1"></Table>
