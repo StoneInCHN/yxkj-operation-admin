@@ -58,58 +58,58 @@
       }
     },
     mounted() {
-      container = document.createElement('div');
-      this.$refs.can.appendChild(container);
+      // container = document.createElement('div');
+      // this.$refs.can.appendChild(container);
 
-      camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 10000);
-      camera.position.z = 1000;
+      // camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 10000);
+      // camera.position.z = 1000;
 
-      scene = new THREE.Scene();
+      // scene = new THREE.Scene();
 
-      particles = new Array();
+      // particles = new Array();
 
-      var PI2 = Math.PI * 2;
-      var material = new THREE.ParticleCanvasMaterial({
+      // var PI2 = Math.PI * 2;
+      // var material = new THREE.ParticleCanvasMaterial({
 
-        color: 0x0078de,
-        program: function(context) {
+      //   color: 0x0078de,
+      //   program: function(context) {
 
-          context.beginPath();
-          context.arc(0, 0, 1, 0, PI2, true);
-          context.fill();
+      //     context.beginPath();
+      //     context.arc(0, 0, 1, 0, PI2, true);
+      //     context.fill();
 
-        }
+      //   }
 
-      });
+      // });
 
-      var i = 0;
+      // var i = 0;
 
-      for (var ix = 0; ix < AMOUNTX; ix++) {
+      // for (var ix = 0; ix < AMOUNTX; ix++) {
 
-        for (var iy = 0; iy < AMOUNTY; iy++) {
+      //   for (var iy = 0; iy < AMOUNTY; iy++) {
 
-          particle = particles[i++] = new THREE.Particle(material);
-          particle.position.x = ix * SEPARATION - ((AMOUNTX * SEPARATION) / 2);
-          particle.position.z = iy * SEPARATION - ((AMOUNTY * SEPARATION) / 2);
-          scene.add(particle);
+      //     particle = particles[i++] = new THREE.Particle(material);
+      //     particle.position.x = ix * SEPARATION - ((AMOUNTX * SEPARATION) / 2);
+      //     particle.position.z = iy * SEPARATION - ((AMOUNTY * SEPARATION) / 2);
+      //     scene.add(particle);
 
-        }
+      //   }
 
-      }
+      // }
 
-      renderer = new THREE.CanvasRenderer();
-      renderer.setSize(window.innerWidth, window.innerHeight);
-      container.appendChild(renderer.domElement);
+      // renderer = new THREE.CanvasRenderer();
+      // renderer.setSize(window.innerWidth, window.innerHeight);
+      // container.appendChild(renderer.domElement);
 
-      document.addEventListener('mousemove', onDocumentMouseMove, false);
-      document.addEventListener('touchstart', onDocumentTouchStart, false);
-      document.addEventListener('touchmove', onDocumentTouchMove, false);
+      // document.addEventListener('mousemove', onDocumentMouseMove, false);
+      // document.addEventListener('touchstart', onDocumentTouchStart, false);
+      // document.addEventListener('touchmove', onDocumentTouchMove, false);
 
-      //
+      // //
 
-      window.addEventListener('resize', onWindowResize, false);
+      // window.addEventListener('resize', onWindowResize, false);
 
-      animate();
+      // animate();
     },
     methods: {
       handleLogin() {
