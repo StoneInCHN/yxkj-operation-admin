@@ -1,40 +1,51 @@
 <template>
   <div>
-    <div class="h6">二维码管理</div>
-    <div class="form-container">
-      <Form label-width="100"  label-position="left">
-      <Row>
-        <Col span="6">
-            <FormItem label="优享空间:">
-                <Select placeholder="请选择">
-                    <Option value="beijing">北京市</Option>
-                    <Option value="shanghai">上海市</Option>
-                    <Option value="shenzhen">深圳市</Option>
-                </Select>
-            </FormItem>
-          </Col>
-      </Row>
-      <Row>
-        <Col span="6">
-            <FormItem label="货道搜索：" prop="name">
-                <Input  placeholder="请输入商品名称进行查询"></Input>
-              </FormItem>
-          </Col>
-          <Col span="6">
-            <FormItem >
-              <Button type="primary" icon="ios-search">搜索</Button>
-            </FormItem>
-          </Col>
-      </Row>
+    <Card>
+        <p slot="title">
+           <Icon type="ios-search"></Icon><span>查询条件</span>
+        </p>
+        <Form label-width="100"  label-position="right">
+          <Row>
+            <Col span="6">
+                <FormItem label="优享空间:">
+                    <Select placeholder="请选择">
+                        <Option value="beijing">北京市</Option>
+                        <Option value="shanghai">上海市</Option>
+                        <Option value="shenzhen">深圳市</Option>
+                    </Select>
+                </FormItem>
+            </Col>
+            <Col span="6">
+                <FormItem label="货道搜索：" prop="name">
+                    <Input  placeholder="请输入商品名称进行查询"></Input>
+                  </FormItem>
+              </Col>
+              <Col span="6">
+                <FormItem >
+                  <Button type="primary" icon="ios-search">搜索</Button>
+                </FormItem>
+              </Col>
+          </Row>
       </Form>
-      </div>
-        <div>
-            <Button type="info" size="small" style="float:right; margin-bottom:10px;" @click="exportQRCodeAction()">导出二维码</Button>
-           <Table border ref="selection" :columns="columns4" :data="data1"  style="clear:right;"></Table>
-          <Page :current="2" :total="50" simple style="float:right; margin-top:10px;"></Page>
+    </Card>
+    
+    <div class="btn-groups">
+        <div class="float-right">
+          <Button type="info"   @click="exportQRCodeAction">导出二维码</Button>
         </div>
+    </div>
+    <div class="clearfix"></div>
+    <Tabs value="name1">
+        <TabPane label="补货记录" name="name1">
+            <Table border ref="selection" :columns="columns4" :data="data1"  style="clear:right;"></Table>
+            <Page :current="2" :total="50" show-elevator></Page>
+        </TabPane>
+        <TabPane label="待补货清单" name="name2">
+          <Table border ref="selection" :columns="columns4" :data="data1"  style="clear:right;"></Table>
+          <Page :current="2" :total="50" show-elevator></Page>
+        </TabPane>
+    </Tabs>
   </div>
-
 </template>
 
 <script>
@@ -89,7 +100,7 @@
             }
         },
         mounted() {
-            this.$refs.selection.selectAll(true)
+            //this.$refs.selection.selectAll(true)
         },
         methods: {
             exportQRCodeAction() {

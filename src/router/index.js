@@ -80,8 +80,25 @@ export const asyncRouterMap = [{
                 },
                 children: [
                     { path: 'index', name: '优享空间', icon: 'ios-paper', component: _import('sence/Index') },
-                    { path: 'add', name: '新增、编辑', icon: 'android-people', component: _import('sence/AddNewSence') },
-                    { path: 'containers', name: '货柜管理', icon: 'android-people', component: _import('sence/AddNewSence') }  
+                    { path: 'add', name: '添加、编辑优享空间', hidden: true, icon: 'android-people', component: _import('sence/AddNewSence') },
+                    { path: 'qrCode', name: '二维码管理', hidden: true, icon: 'android-people', component: _import('sence/QRCodeManage') },
+                    { path: 'replenish', name: '二维码管理', hidden: true, icon: 'android-people', component: _import('sence/ReplenishMessage') },
+                    { 
+                        path: 'containers',
+                        name: '货柜管理',
+                        icon: 'android-people',
+                        redirect: '/sence/containers/index',
+                        component: {
+                            render(c) { return c('router-view') }
+                        },
+                        children: [
+                            { path: 'index', name: '货柜管理', icon: 'ios-paper', component: _import('sence/ContainerManage') },
+                            { path: 'add', name: '添加货柜', icon: 'ios-paper', component: _import('sence/AddNewContainer') },
+                            { path: 'edit', name: '编辑货柜', icon: 'ios-paper', component: _import('sence/EditContainer') },
+                            { path: 'channel', name: '编辑货柜', icon: 'ios-paper', component: _import('sence/Channel') },
+                            { path: 'channel-management', name: '编辑货柜', icon: 'ios-paper', component: _import('sence/ChannelManagement') }
+                        ] 
+                    }  
                 ]
             },
             {

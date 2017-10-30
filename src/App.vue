@@ -14,6 +14,7 @@
 }
 .btn-groups{
     margin:10px;
+    overflow: hidden;
 }
 .search-btn{
     margin-left: 60px;
@@ -23,5 +24,11 @@
 	display: block;
 	height: 0;
 	clear: both;
+}
+.float-left{
+    float: left;
+}
+.float-right{
+    float: right;
 }
 </style>

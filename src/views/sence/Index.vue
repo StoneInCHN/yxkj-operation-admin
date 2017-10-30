@@ -28,12 +28,12 @@
     </Card>
     <div class="btn-groups">
         <div class="float-left">
-            <Button type="info"   @click="replenishMessageAction()">补货信息</Button>
-            <Button type="success"  @click="qrCodeManageAction()">二维码管理</Button>
+            <Button type="info"   @click="replenishMessageAction">补货信息</Button>
+            <Button type="success"  @click="qrCodeManageAction">二维码管理</Button>
         </div>
         <div class="float-right">
-            <Button type="success"  @click="addNewSecnceAction()">新增</Button>
-            <Button type="error"  @click="deleteItem()">删除</Button>
+            <Button type="success"  @click="addNewSecnceAction">新增</Button>
+            <Button type="error"  @click="deleteItem">删除</Button>
         </div>
      </div>
      <div class="clearfix"></div>
@@ -148,12 +148,12 @@
         methods: {
             replenishMessageAction() {
                     this.$router.push({
-                        path: 'replenish-message'
+                        path: 'replenish'
                     })
                 },
             qrCodeManageAction() {
                     this.$router.push({
-                        path: 'QRCode-manage'
+                        path: 'qrCode'
                     })
                 },
             addNewSecnceAction() {
@@ -175,11 +175,20 @@
             },
             containerManageAction(index) {
                  this.$router.push({
-                        path: 'container-manage'
+                        path: 'containers'
                     })
             },
             deleteItem () {
-                alert('ok')
+                this.$Modal.confirm({
+                    title: '系统提示',
+                    content: '<p>删除优享空间会同时删除其中的货柜，确认要删除选中的优享空间吗？</p>',
+                    onOk: () => {
+                        this.$Message.info('点击了确定');
+                    },
+                    onCancel: () => {
+                        this.$Message.info('点击了取消');
+                    }
+                });
             }
         }
 

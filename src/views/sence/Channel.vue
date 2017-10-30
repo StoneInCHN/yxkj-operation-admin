@@ -1,21 +1,10 @@
-
 <template>
 <div>
     <Tabs value="name1">
         <TabPane label="香年广场T2" name="name1">
-            <div class="btn-groups">
-                <div class="float-left">
-                    <Button type="info"   @click="allowServicAction">允许服务</Button>
-                    <Button type="success"  @click="stopServiceAction">停止服务</Button>
-                </div>
-                <div class="float-right">
-                    <Button type="success"  @click="addNewContainerAction">新增</Button>
-                    <Button type="error"  @click="deleteItem">删除</Button>
-                </div>
-             </div>
-            <div class="clearfix"></div>
-            <Table border ref="selection" :columns="columns4" :data="data1" ></Table>
-            <Page :current="2" :total="50"  show-elevator></Page>
+        <p>货柜编号：A</p>
+        <Table border ref="selection" :columns="columns4" :data="data1" ></Table>
+        <Page :current="2" :total="50" show-elevator></Page>
         </TabPane>
     </Tabs>
 </div>
@@ -29,31 +18,48 @@
                 modal_loading: false,
                 columns4: [
                     {
-                        type: 'selection',
+                        type: 'index',
                         width: 60,
                         align: 'center'
                     },
                     {
-                        title: '货柜编号编号',
-                        key: 'container_num'
+                        title: '货道编号',
+                        key: 'num'
                     },
                     {
-                        title: '货柜类型',
-                        key: 'container_type'
+                        title: '商品名称',
+                        key: 'name'
                     },
                     {
-                        title: '货柜状态',
-                        key: 'container_status'
+                        title: '净含量',
+                        key: 'opne_up_time'
                     },
                     {
-                        title: '预警值比例',
-                        key: 'bn'
+                        title: '商品价格',
+                        key: 'containers_count'
+                    },
+                    {
+                        title: '货道容量',
+                        key: 'is_micro_container'
+                    },
+                    {
+                        title: '剩余货量',
+                        key: 'is_micro_container'
+                    },
+                    {
+                        title: '预警数量',
+                        key: 'is_micro_container'
+                    },
+                    {
+                        title: '商品状态',
+                        key: 'is_micro_container'
                     },
                     {
                         title: '操作',
                         key: 'action',
+                        width: 200,
                         render: (h, params) => {
-                            return  h('div', [
+                          return  h('div', [
                                 h('Button', {
                                     props: {
                                         type: 'info',
@@ -64,10 +70,25 @@
                                     },
                                     on: {
                                         click: () => {
-                                            this.editContainerAction()
+                                            alert('bianji')
+                                            this.editSecnceAction()
                                         }
                                     }
                                 }, '编辑'),
+                                h('Button', {
+                                    props: {
+                                        type: 'error',
+                                        size: 'small'
+                                    },
+                                    style: {
+                                        marginRight: '5px'
+                                    },
+                                    on: {
+                                        click: () => {
+                                            this.deleteItem()
+                                        }
+                                    }
+                                }, '删除'),
                                 h('Button', {
                                     props: {
                                         type: 'primary',
@@ -82,38 +103,45 @@
                                         }
                                     }
                                 }, '货道管理')
-                            ])
+                            ]);
                         }
-                    }
+                    },
                 ],
-
                 data1: [
                     {
-                        container_num: '123',
-                        container_type: '王小明',
-                        container_status: '北京市朝阳区芍药居',
+                        num: '123',
+                        name: '王小明',
+                        opne_up_time: '北京市朝阳区芍药居',
+                        containers_count: '北京市朝阳区芍药居',
+                        is_micro_container: 18
                     },
                     {
-                        container_num: '123',
-                        container_type: '王小明',
-                        container_status: '北京市朝阳区芍药居',
+                        num: '123',
+                        name: '王小明',
+                        opne_up_time: '北京市朝阳区芍药居',
+                        containers_count: '北京市朝阳区芍药居',
+                        is_micro_container: 18
                     }
                 ]
             }
         },
         methods: {
-            allowServicAction() {
-                },
-            stopServiceAction() {
-                },
-            addNewContainerAction() {
-                this.$router.push({
-                    path: 'add'
-                })
-            },
-             editContainerAction() {
+            replenishMessageAction() {
                     this.$router.push({
-                        path: 'edit'
+                        path: 'replenish-message'
+                    })
+                },
+            qrCodeManageAction() {
+                    this.$router.push({
+                        path: 'QRCode-manage'
+                    })
+                },
+            addNewSecnceAction() {
+                this.$router.push({path: 'add'})
+            },
+             editSecnceAction() {
+                    this.$router.push({
+                        path: 'edit-sence'
                     })
             },
             delteContainerAction() {
@@ -126,22 +154,14 @@
                 }, 2000);
             },
             containerManageAction(index) {
-                this.$router.push({ path: 'channel'})
-            },
-            warningSettingAction() {
-                this.$router.push({
-                        path: 'waring-value-manage'
-                    })
-            },
-            containerTypeAction() {
-                this.$router.push({
-                        path: 'container-type-manage'
+                 this.$router.push({
+                        path: 'containers'
                     })
             },
             deleteItem () {
                 this.$Modal.confirm({
                     title: '系统提示',
-                    content: '<p>确认删除香年广场T2的A1货柜？</p>',
+                    content: '<p>删除优享空间会同时删除其中的货柜，确认要删除选中的优享空间吗？</p>',
                     onOk: () => {
                         this.$Message.info('点击了确定');
                     },
@@ -156,6 +176,9 @@
 </script>
 
 <style scoped>
+.test {
+    margin-top: 20px;
+}
 .float-left{
     float: left;
 }
