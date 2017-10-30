@@ -1,7 +1,10 @@
 <template>
-<div> 
-    <div class="h6">新增场景</div>
-      <Form :label-width="100" label-position="left">
+<div>
+    <Card>
+        <p slot="title">
+           <Icon type="ios-search"></Icon><span>新增场景</span>
+        </p>
+        <Form :label-width="100" label-position="left">
         <FormItem label="场景编号:">
             <Input  placeholder="请输入" style="width:200px;" value="223" disabled></Input>
         </FormItem>
@@ -40,6 +43,13 @@
             </Row>
         </FormItem>
         <FormItem label="优享空间名称: " placeholder="优享空间所在写在楼名称，如：香年广场T3">
+            <Row>
+                <Col span="11">
+                    <Input></Input>
+                </Col>
+            </Row>
+        </FormItem>
+        <FormItem label="中控IMEI: " placeholder="请输入中控IMEI">
             <Row>
                 <Col span="11">
                     <Input></Input>
@@ -91,8 +101,8 @@
              <Button type="primary"> 保存 </Button>
         </FormItem>
     </Form>
-  </div>
-
+    </Card>
+</div>
 </template>
 
 <script>

@@ -1,44 +1,65 @@
 <template>
 <div>
-    <div class="h6">商品收入</div>
-    <div class="form-container">
-     <Form label-width="80" label-position="left">
-     <Row type="flex" :gutter="20">
-        <Col span="4" order="1" >
-            <FormItem label="开始日期">
-                <DatePicker type="date" placeholder="选择日期" ></DatePicker>
-            </FormItem>
-        </Col>
-        <Col span="4" order="2">
-            <FormItem label="结束日期">
-                <DatePicker type="date" placeholder="选择日期" ></DatePicker>
-            </FormItem>
-        </Col>
-    </Row>
-    <FormItem label="商品种类:">
-        <Select placeholder="请选择" style="width:200px;">
-            <Option value="beijing">北京市</Option>
-            <Option value="shanghai">上海市</Option>
-            <Option value="shenzhen">深圳市</Option>
-        </Select>
-    </FormItem>
-    <FormItem label="优享空间:" >
-                <Select placeholder="支付方式"  style="width:200px;">
-                    <Option value="beijing">北京市</Option>
-                    <Option value="shanghai">上海市</Option>
-                    <Option value="shenzhen">深圳市</Option>
-                </Select>
-    </FormItem>
-    <FormItem label="收入查询：:">
-        <Input v-model="value" placeholder="请输入商品名称/商品编号" style="width: 300px"></Input>
-        <Button type="primary" icon="ios-search" >搜索</Button>
-    </FormItem>
-    </Form>
-      <div style="margin-top:15px;">
-          <Table border :columns="columns1" :data="data1"></Table>
-          <Page :current="2" :total="50" simple style="float:right; margin-top:10px;"></Page>
+    <Card>
+        <p slot="title">
+           <Icon type="ios-search"></Icon>查询条件
+        </p>
+        <Form label-width="80" label-position="right">
+            <Row  >
+                <Col span="6" >
+                    <FormItem label="开始日期">
+                        <DatePicker type="date" placeholder="选择日期" ></DatePicker>
+                    </FormItem>
+                </Col>
+                <Col span="6">
+                    <FormItem label="结束日期">
+                        <DatePicker type="date" placeholder="选择日期" ></DatePicker>
+                    </FormItem>
+                </Col>
+                <Col span="6">
+                    <FormItem label="商品种类:">
+                        <Select placeholder="请选择">
+                            <Option value="beijing">北京市</Option>
+                            <Option value="shanghai">上海市</Option>
+                            <Option value="shenzhen">深圳市</Option>
+                        </Select>
+                    </FormItem>
+                </Col>
+                <Col span="6">
+                    <FormItem label="优享空间:" >
+                        <Select placeholder="支付方式" >
+                            <Option value="beijing">北京市</Option>
+                            <Option value="shanghai">上海市</Option>
+                            <Option value="shenzhen">深圳市</Option>
+                        </Select>
+                    </FormItem>
+                </Col>
+            </Row>
+            <Row >
+                <Col span="6">
+                    <FormItem label="商品名称">
+                        <Input v-model="value" placeholder="请输入商品名称"></Input>
+                    </FormItem>
+                </Col>
+                <Col span="6">
+                    <FormItem label="商品条码">
+                        <Input v-model="value" placeholder="请输入商品条码"></Input>
+
+                    </FormItem>
+                </Col>
+                <Col span="6">
+                    <FormItem>
+                        <Button type="primary" icon="ios-search" class="search-btn">搜索</Button>
+                    </FormItem>
+                </Col>
+            </Row>
+        </Form>
+    </Card>
+    <div class="btn-groups">
+        <Button type="primary" size="large" ><Icon type="ios-download-outline"></Icon> Excel导出</Button>
     </div>
-    </div>
+    <Table border :columns="columns1" :data="data1"></Table>
+    <Page :current="2" :total="50" show-elevator></Page>
 </div>
 </template>
 
@@ -49,8 +70,9 @@
             return {
                  columns1: [
                     {
-                        title: '排序',
-                        key: 'code'
+                        type: 'index',
+                        width: 60,
+                        align: 'center'
                     },
                     {
                         title: '商品条码',
@@ -61,20 +83,31 @@
                         key: 'pay_method'
                     },
                      {
-                        title: '商品种类',
+                        title: '净含量',
                         key: 'phone_num'
                     },
                     {
-                        title: '默认售价',
-                        key: 'gendar'
+                        title: '商品种类',
+                        key: 'type'
                     },
                     {
-                        title: '支付方式',
+                        title: '默认售价',
                         key: 'belongs'
                     },
                     {
-                        title: '订单时间',
-                        key: 'channels'
+                        title: '商品点击量',
+                        key: 'channels',
+                        sortable: true
+                    },
+                    {
+                        title: '商品销量',
+                        key: 'channels',
+                        sortable: true
+                    },
+                    {
+                        title: '商品销售额',
+                        key: 'channels',
+                        sortable: true
                     }
                 ],
                 data1: [
@@ -85,7 +118,7 @@
                         phone_num: '王小明',
                         gendar: 18,
                         belongs: '北京市朝阳区芍药居',
-                        channels: '王小明',
+                        channels: '3',
                     },
                     {
                           code: '王小明',
@@ -94,7 +127,7 @@
                         phone_num: '王小明',
                         gendar: 18,
                         belongs: '北京市朝阳区芍药居',
-                        channels: '王小明',
+                        channels: '3',
                     },
                     {
                        code: '王小明',
@@ -103,7 +136,7 @@
                         phone_num: '王小明',
                         gendar: 18,
                         belongs: '北京市朝阳区芍药居',
-                        channels: '王小明',
+                        channels: '2',
                     }
                 ]
             }
@@ -112,6 +145,5 @@
 </script>
 
 <style scoped>
-
 </style>
 

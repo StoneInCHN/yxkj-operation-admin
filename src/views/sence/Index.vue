@@ -1,51 +1,44 @@
 <template>
 <div>
-    <div>优享空间</div>
-    <Form  :label-width="80" :Input-width="100" label-position="right">
-        <Row :gutter="4">
-            <Col span="6">
-                <Form-item label="优享空间：">
-                    <Input  placeholder="请输入优享空间地址或编号" ></Input>
-                </Form-item>
-            </Col>
-            <Col span="4">
-            <div style="margin-left:-10px;">  
-                <Form-item>
-                    <Button type="primary" icon="ios-search" >搜索</Button>
-                </Form-item>
-            </div>
-            </Col>
-        </Row>
-     </Form>
-     <div style="">
-        <h5 style="float: left">优享空间列表</h5>
-        <div style="float: left; margin-left: 80px;"> 
-             <Button type="info"  size="small" @click="replenishMessageAction()">补货信息</Button>
-             <Button type="success" size="small" @click="qrCodeManageAction()">二维码管理</Button>
+    <Card>
+        <p slot="title">
+           <Icon type="ios-search"></Icon><span>查询条件</span>
+        </p>
+        <Form  :label-width="100" label-position="right">
+            <Row >
+                <Col span="6">
+                    <Form-item label="优享空间名称">
+                        <Input  placeholder="请输入优享空间名称" ></Input>
+                    </Form-item>
+                </Col>
+                <Col span="6">
+                    <Form-item label="优享空间编号">
+                        <Input  placeholder="请输入优享空间编号" ></Input>
+                    </Form-item>
+                </Col>
+                <Col span="6">
+                <div style="margin-left:-10px;">  
+                    <Form-item>
+                        <Button type="primary" icon="ios-search" >搜索</Button>
+                    </Form-item>
+                </div>
+                </Col>
+            </Row>
+         </Form>
+    </Card>
+    <div class="btn-groups">
+        <div class="float-left">
+            <Button type="info"   @click="replenishMessageAction()">补货信息</Button>
+            <Button type="success"  @click="qrCodeManageAction()">二维码管理</Button>
         </div>
-       <div style="float: right">
-            <Button type="success" size="small" @click="addNewSecnceAction()">新增</Button>
-            <Button type="error" size="small" @click="modalDelete = true">删除</Button>
-                <Modal v-model="modalDelete" width="360">
-                    <p slot="header" style="color:#f60;text-align:center">
-                        <Icon type="information-circled"></Icon>
-                        <span>确认删除选中的优享空间吗？</span>
-                    </p>
-                    <div style="text-align:center">
-                        <p>删除后，将无法恢复</p>
-                        <p>是否继续删除？</p>
-                    </div>
-                    <div slot="footer">
-                        <Button type="error" size="large" long :loading="modal_loading" @click="delteContainerAction()">删除</Button>
-                    </div>
-                </Modal>
-            <Button type="primary" size="small" @click="editSecnceAction()">编辑</Button>
+        <div class="float-right">
+            <Button type="success"  @click="addNewSecnceAction()">新增</Button>
+            <Button type="error"  @click="deleteItem()">删除</Button>
         </div>
      </div>
-     <div style="margin-top: 40px;">
-        <Table border ref="selection" :columns="columns4" :data="data1" ></Table>
-         <Page :current="2" :total="50" simple style="float:right; margin-top:10px;"></Page>
-    </div>
+     <div class="clearfix"></div>
+    <Table border ref="selection" :columns="columns4" :data="data1" ></Table>
+    <Page :current="2" :total="50" show-elevator></Page>
 </div>
 </template>
 
@@ -84,21 +77,53 @@
                     {
                         title: '操作',
                         key: 'action',
+                        width: 200,
                         render: (h, params) => {
-                          return  h('Button', {
-                                props: {
-                                    type: 'primary',
-                                    size: 'small'
-                                },
-                                style: {
-                                    marginRight: '5px'
-                                },
-                                on: {
-                                    click: () => {
-                                        this.containerManageAction(params.index)
+                          return  h('div', [
+                                h('Button', {
+                                    props: {
+                                        type: 'info',
+                                        size: 'small'
+                                    },
+                                    style: {
+                                        marginRight: '5px'
+                                    },
+                                    on: {
+                                        click: () => {
+                                            alert('bianji')
+                                            this.editSecnceAction()
+                                        }
                                     }
-                                }
-                            }, '货柜管理');
+                                }, '编辑'),
+                                h('Button', {
+                                    props: {
+                                        type: 'error',
+                                        size: 'small'
+                                    },
+                                    style: {
+                                        marginRight: '5px'
+                                    },
+                                    on: {
+                                        click: () => {
+                                            this.deleteItem()
+                                        }
+                                    }
+                                }, '删除'),
+                                h('Button', {
+                                    props: {
+                                        type: 'primary',
+                                        size: 'small'
+                                    },
+                                    style: {
+                                        marginRight: '5px'
+                                    },
+                                    on: {
+                                        click: () => {
+                                            this.containerManageAction(params.index)
+                                        }
+                                    }
+                                }, '货柜管理')
+                            ]);
                         }
                     },
                 ],
@@ -132,9 +157,7 @@
                     })
                 },
             addNewSecnceAction() {
-                    this.$router.push({
-                        path: 'add-new-sence'
-                    })
+                this.$router.push({path: 'add'})
             },
              editSecnceAction() {
                     this.$router.push({
@@ -154,6 +177,9 @@
                  this.$router.push({
                         path: 'container-manage'
                     })
+            },
+            deleteItem () {
+                alert('ok')
             }
         }
 
@@ -163,5 +189,15 @@
 <style scoped>
 .test {
     margin-top: 20px;
+}
+.float-left{
+    float: left;
+}
+.float-right{
+    float: right;
+}
+.btn-groups {
+    margin: 10px;
+    overflow: hidden;
 }
 </style>

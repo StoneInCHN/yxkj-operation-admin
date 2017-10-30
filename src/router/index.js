@@ -10,7 +10,6 @@ import DataDetail from '@/views/operationManage/DataDetail'
 import UserData from '@/views/operationManage/UserData'
 import OrderData from '@/views/operationManage/OrderData'
 import IncomeData from '@/views/operationManage/IncomeData'
-import Container from '@/views/sence/Index'
 import ReplenishMessage from '@/views/sence/ReplenishMessage'
 import QRCodeManage from '@/views/sence/QRCodeManage'
 import AddNewContainer from '@/views/sence/AddNewContainer'
@@ -65,16 +64,25 @@ export const asyncRouterMap = [{
                 },
                 children: [
                     { path: 'outline', name: '数据概览', icon: 'ios-paper', component: DataDetail },
-                    { path: 'user-data', name: '用户数据', icon: 'android-document', component: UserData },
-                    { path: 'order-data', name: '订单数据', icon: 'android-document', component: OrderData },
-                    { path: 'income-data', name: '收入数据', icon: 'android-list', component: IncomeData }
+                    { path: 'user-data', name: '用户数据', icon: 'android-people', component: UserData },
+                    { path: 'order-data', name: '订单数据', icon: 'android-document', component: OrderData},
+                    { path: 'income-data', name: '收入数据', icon: 'android-list', component: IncomeData },
+                    { path: 'order-data/:id', name: '订单详情',hidden: true, icon: 'ios-paper', component: _import('operationManage/OrderDetails') }
                 ]
             },
             {
                 path: '/sence',
                 name: '优享空间',
                 icon: 'speedometer',
-                component: Container,
+                redirect: '/sence/index',
+                component: {
+                    render(c) { return c('router-view') }
+                },
+                children: [
+                    { path: 'index', name: '优享空间', icon: 'ios-paper', component: _import('sence/Index') },
+                    { path: 'add', name: '新增、编辑', icon: 'android-people', component: _import('sence/AddNewSence') },
+                    { path: 'containers', name: '货柜管理', icon: 'android-people', component: _import('sence/AddNewSence') }  
+                ]
             },
             {
                 path: '/goods',
