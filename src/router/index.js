@@ -83,6 +83,7 @@ export const asyncRouterMap = [{
                     { path: 'add', name: '添加、编辑优享空间', hidden: true, icon: 'android-people', component: _import('sence/AddNewSence') },
                     { path: 'qrCode', name: '二维码管理', hidden: true, icon: 'android-people', component: _import('sence/QRCodeManage') },
                     { path: 'replenish', name: '二维码管理', hidden: true, icon: 'android-people', component: _import('sence/ReplenishMessage') },
+                    { path: 'container-type', name: '货柜类型', icon: 'ios-paper', component: _import('sence/ContainerTypeManage') },
                     { 
                         path: 'containers',
                         name: '货柜管理',
@@ -95,7 +96,7 @@ export const asyncRouterMap = [{
                             { path: 'index', name: '货柜管理', icon: 'ios-paper', component: _import('sence/ContainerManage') },
                             { path: 'add', name: '添加货柜', icon: 'ios-paper', component: _import('sence/AddNewContainer') },
                             { path: 'edit', name: '编辑货柜', icon: 'ios-paper', component: _import('sence/EditContainer') },
-                            { path: 'channel', name: '编辑货柜', icon: 'ios-paper', component: _import('sence/Channel') },
+                            { path: 'channel', name: '货道管理', icon: 'ios-paper', component: _import('sence/Channel') },
                             { path: 'channel-management', name: '编辑货柜', icon: 'ios-paper', component: _import('sence/ChannelManagement') }
                         ] 
                     }  

@@ -1,7 +1,7 @@
 <template>
   <footer class="app-footer">
      &copy; 2017 creativeLabs.
-    <span class="float-right">Powered by <a >YXKJ</a></span>
+    <span>Powered by <a >YXKJ</a></span>
   </footer>
 </template>
 <script>
