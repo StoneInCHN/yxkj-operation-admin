@@ -4,7 +4,7 @@
         <p slot="title">
            <Icon type="android-people"></Icon>用户数据
         </p>
-         <Form label-width="100" label-position="right">
+         <Form :label-width="100" label-position="right">
             <Row >
                 <Col span="6">
                     <FormItem label="开始日期">
