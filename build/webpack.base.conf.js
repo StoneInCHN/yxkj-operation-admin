@@ -52,9 +52,18 @@ module.exports = {
             //         formatter: require('eslint-friendly-formatter')
             //     }
             // },
-            { test: /\.vue$/,
-                loader: 'vue-loader',
-                options: vueLoaderConfig
+            {   test: /\.vue$/,
+                use: [
+                    { 
+                        loader: 'vue-loader',
+                        options: vueLoaderConfig
+                    },{
+                        loader: 'iview-loader',
+                        options: {
+                            prefix: false
+                        }
+                    }
+                ]
             },
             {
                 test: /\.js$/,

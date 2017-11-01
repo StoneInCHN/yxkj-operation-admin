@@ -28,23 +28,25 @@
           </Row>
       </Form>
     </Card>
-    
-    <div class="btn-groups">
-        <div class="float-right">
-          <Button type="info"   @click="exportQRCodeAction">导出二维码</Button>
+    <br/>
+    <Card>
+        <div class="btn-groups">
+            <div class="float-right">
+              <Button type="info"   @click="exportQRCodeAction">导出二维码</Button>
+            </div>
         </div>
-    </div>
-    <div class="clearfix"></div>
-    <Tabs value="name1">
-        <TabPane label="补货记录" name="name1">
-            <Table border ref="selection" :columns="columns4" :data="data1"  style="clear:right;"></Table>
-            <Page :current="2" :total="50" show-elevator></Page>
-        </TabPane>
-        <TabPane label="待补货清单" name="name2">
-          <Table border ref="selection" :columns="columns4" :data="data1"  style="clear:right;"></Table>
-          <Page :current="2" :total="50" show-elevator></Page>
-        </TabPane>
-    </Tabs>
+        <div class="clearfix"></div>
+        <Tabs value="name1">
+            <TabPane label="补货记录" name="name1">
+                <Table border ref="selection" :columns="columns4" :data="data1"  style="clear:right;"></Table>
+                <Page :current="2" :total="50" show-elevator></Page>
+            </TabPane>
+            <TabPane label="待补货清单" name="name2">
+              <Table border ref="selection" :columns="columns4" :data="data1"  style="clear:right;"></Table>
+              <Page :current="2" :total="50" show-elevator></Page>
+            </TabPane>
+        </Tabs>
+    </Card>
   </div>
 </template>
 

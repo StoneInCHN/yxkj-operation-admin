@@ -1,6 +1,5 @@
-
 <template>
-<div>
+<Card>
     <Tabs value="name1">
         <TabPane label="香年广场T2" name="name1">
             <div class="btn-groups">
@@ -18,7 +17,7 @@
             <Page :current="2" :total="50"  show-elevator></Page>
         </TabPane>
     </Tabs>
-</div>
+</Card>
 </template>
 
 <script>

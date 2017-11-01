@@ -4,37 +4,28 @@
         <p slot="title">
            <Icon type="ios-search"></Icon><span>补货信息</span>
         </p>
-        <Form label-width="100"  label-position="left">
-          <Row type="flex">
-              <Col span="4" order="1">
-                <FormItem label="开始日期">
-                    <DatePicker type="date" placeholder="选择日期" ></DatePicker>
-                  </FormItem>
-              </Col>
-              <Col span="4" order="2">
-                  <FormItem label="结束日期">
-                    <DatePicker type="date" placeholder="选择日期" ></DatePicker>
-                  </FormItem>
-              </Col>
-          </Row>
-          <Row>
+        <Form label-width="100"  label-position="right">
+          <Row >
             <Col span="6">
                 <FormItem label="选择优享空间:">
-                    <Select placeholder="请选择">
+                    <Select placeholder="请选择" >
                         <Option value="beijing">北京市</Option>
                         <Option value="shanghai">上海市</Option>
                         <Option value="shenzhen">深圳市</Option>
                     </Select>
                 </FormItem>
               </Col>
-          </Row>
-          <Row>
-            <Col span="6">
+              <Col span="7" >
+                <FormItem label="选择日期">
+                     <DatePicker type="daterange" placement="bottom-end" placeholder="选择日期" style="width: 200px"></DatePicker>
+                  </FormItem>
+              </Col>
+              <Col span="6">
                 <FormItem label="补货查询：" prop="name">
                     <Input  placeholder="请输入商品名称进行查询"></Input>
                   </FormItem>
               </Col>
-              <Col span="6">
+              <Col span="5">
                 <FormItem >
                   <Button type="primary" icon="ios-search">搜索</Button>
                 </FormItem>
@@ -42,13 +33,17 @@
           </Row>
       </Form>
     </Card>
-    <div class="btn-groups">
-        <div class="float-right">
-            <Button type="success"  @click="addNewSecnceAction">Excel导出</Button>
-        </div>
-     </div>
-    <Table border ref="selection" :columns="columns4" :data="data1"></Table>
-    <Page :current="2" :total="50" show-elevator></Page>
+    <br/>
+    <Card>
+        <div class="btn-groups">
+            <div class="float-right">
+                <Button type="success"  @click="addNewSecnceAction">Excel导出</Button>
+            </div>
+         </div>
+        <Table border ref="selection" :columns="columns4" :data="data1"></Table>
+        <Page :current="2" :total="50" show-elevator></Page>
+        <div class="clearfix"></div>
+    </Card>
   </div>
 </template>
 

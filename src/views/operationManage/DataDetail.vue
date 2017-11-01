@@ -1,6 +1,5 @@
 <template>
-<div class="container">
-<div class="h6">数据详情</div>
+<Card class="container">
 <div class="h6">优享空间：香年广场T3-1 编号：1000000001</div>
 <div class="data-container">
     <div class="section-title">基本数据</div>
@@ -31,7 +30,7 @@
         </div>
         <div class="">
             <div class="base-data-title">
-                  <Dropdown>
+                <Dropdown>
                     <a href="javascript:void(0)">
                         重复购买率
                         <Icon type="arrow-down-b"></Icon>
@@ -44,7 +43,7 @@
                          复购 <Input  size="small" placeholder="次数" style="width:60px"></Input> 次以上
                         </Dropdown>
                     </DropdownMenu>
-                    </Dropdown>
+                </Dropdown>
             </div>
             <div class="base-data-value ">1888</div>
         </div>
@@ -75,7 +74,7 @@
       <line-chart/>
     </div>
   </div>
-</div>
+</Card>
 </template>
 <script>
 import LineChart from '../charts/Line'

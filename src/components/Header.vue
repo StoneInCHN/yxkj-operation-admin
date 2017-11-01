@@ -21,7 +21,7 @@
         </a>
         <Dropdown-menu slot="list">
             <Dropdown-item>
-              <p class="dropdown-itemp">  <Icon type="chatbox-working"></Icon>Messages<span class="badge badge-danger">42</span></p>
+              <p class="dropdown-itemp" @click="message">  <Icon type="chatbox-working"></Icon>Messages<span class="badge badge-danger">42</span></p>
             </Dropdown-item>
             <Dropdown-item divided>
               <p class="dropdown-itemp"><Icon type="android-contact"></Icon> Profile</p>
@@ -73,6 +73,10 @@ export default {
     asideToggle (e) {
       e.preventDefault()
       document.body.classList.toggle('aside-menu-hidden')
+    },
+    message (e) {
+      e.preventDefault()
+      this.$router.push('../messages')
     }
   }
 }

@@ -1,6 +1,5 @@
 <template>
-<div> 
-    <div class="h6">编辑货柜</div>
+<Card> 
       <Form :label-width="100" label-position="left">
         <FormItem label="优享空间：">
             <label for="">香年广场T2</label>
@@ -32,7 +31,7 @@
             <Button type="primary"> 保存 </Button>
         </FormItem>
     </Form>
-  </div>
+  </Card>
 
 </template>
 

@@ -1,5 +1,5 @@
 <template>
-<div> 
+<Card> 
     <div class="h6">编辑场景</div>
       <Form :label-width="100" label-position="left">
         <FormItem label="场景编号:">
@@ -91,7 +91,7 @@
              <Button type="primary"> 保存 </Button>
         </FormItem>
     </Form>
-  </div>
+  </Card>
 
 </template>
 

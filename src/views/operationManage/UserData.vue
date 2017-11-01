@@ -7,22 +7,17 @@
          <Form :label-width="100" label-position="right">
             <Row >
                 <Col span="6">
-                    <FormItem label="开始日期">
-                        <DatePicker type="date" placeholder="选择日期" ></DatePicker>
-                    </FormItem>
-                </Col>
-                <Col span="6">
-                    <FormItem label="结束日期">
-                        <DatePicker type="date" placeholder="选择日期" ></DatePicker>
-                    </FormItem>
-                </Col>
-                <Col span="6">
                     <FormItem label="选择优享空间">
                         <Select placeholder="请选择">
                             <Option value="beijing">北京市</Option>
                             <Option value="shanghai">上海市</Option>
                             <Option value="shenzhen">深圳市</Option>
                         </Select>
+                    </FormItem>
+                </Col>
+                <Col span="7">
+                    <FormItem label="选择日期">
+                        <DatePicker type="daterange" placement="bottom-end" placeholder="选择日期" style="width: 200px"></DatePicker>
                     </FormItem>
                 </Col>
                 <Col span="6">
@@ -36,16 +31,18 @@
         </Form>
     </Card>
     <br/>
-     <Tabs >
-        <TabPane label="所有用户">
-            <Table :columns="columns1" :data="data1"></Table>
-            <Page :current="2" :total="50" simple class="page-position"></Page>
-        </TabPane>
-        <TabPane label="注册用户">
-            <Table :columns="columns2" :data="data2"></Table>
-            <Page :current="2" :total="50" show-elevator></Page>
-        </TabPane>
-    </Tabs>
+    <Card>
+         <Tabs >
+            <TabPane label="所有用户">
+                <Table :columns="columns1" :data="data1"></Table>
+                <Page :current="2" :total="50" ></Page>
+            </TabPane>
+            <TabPane label="注册用户">
+                <Table :columns="columns2" :data="data2"></Table>
+                <Page :current="2" :total="50" show-elevator></Page>
+            </TabPane>
+        </Tabs>
+    </Card>
 </div>
 </template>
 

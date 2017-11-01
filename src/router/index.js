@@ -88,6 +88,7 @@ export const asyncRouterMap = [{
                         path: 'containers',
                         name: '货柜管理',
                         icon: 'android-people',
+                        hidden: true,
                         redirect: '/sence/containers/index',
                         component: {
                             render(c) { return c('router-view') }
@@ -125,92 +126,63 @@ export const asyncRouterMap = [{
                 path: '/advertisement',
                 name: '广告管理',
                 icon: 'speedometer',
-                component: GoodsManage
+                redirect: '/advertisement/index',
+                component: {
+                    render(c) { return c('router-view') }
+                },
+                children: [
+                    { path: 'index', name: '广告列表', icon: 'ios-paper', component: _import('advertisement/Index') },
+                    { path: 'store', name: '广告库', hidden: true, icon: 'ios-paper', component: _import('advertisement/Store') },
+                    { path: 'operation', name: '批量操作',hidden: true, icon: 'ios-paper', component: _import('advertisement/Operation') }
+                ]
             },
             {
                 path: '/sysytem',
                 name: '系统管理',
                 icon: 'speedometer',
-                component: GoodsManage
+                redirect: '/sysytem/index',
+                component: {
+                    render(c) { return c('router-view') }
+                },
+                children: [
+                    { path: 'index', name: '中控版本', icon: 'ios-paper', component: _import('sysytem/Index') },
+                    { path: 'add', name: '新增',hidden: true, icon: 'ios-paper', component: _import('sysytem/Add') },
+                    { path: 'record', name: '更新记录',hidden: true, icon: 'ios-paper', component: _import('sysytem/UpdateRecord') },
+                    { path: 'addSence', name: '更新记录',hidden: true, icon: 'ios-paper', component: _import('sysytem/AddSence') }
+                ]
             },
             {
-                path: '/property-platform',
+                path: '/property',
                 name: '物业平台',
                 icon: 'speedometer',
-                component: GoodsManage
-            },
-            {
-                path: '/property-platform',
-                name: '物业平台',
-                icon: 'speedometer',
-                component: GoodsManage
+                redirect: '/property/index',
+                component: {
+                    render(c) { return c('router-view') }
+                },
+                children: [
+                    { path: 'index', name: '物业平台', icon: 'ios-paper', component: _import('property/Index') },
+                    { path: 'details', name: '详情订单',hidden: true, icon: 'ios-paper', component: _import('property/Details') }
+                ]
             },
             {
                 path: '/exceptions',
                 name: '异常管理',
                 icon: 'speedometer',
-                component: GoodsManage
+                component: _import('exceptions/Index')
             },
             {
                 path: '/messages',
                 name: '消息',
                 icon: 'speedometer',
-                component: GoodsManage
-            },
-            {
-                path: '/replenish-message',
-                name: '补货信息',
-                component: ReplenishMessage,
-                hidden: true
-            },
-            {
-                path: '/QRCode-manage',
-                name: '二维码管理',
-                component: QRCodeManage,
-                hidden: true
-            },
-            {
-                path: '/add-new-sence',
-                name: '新增场景',
-                component: AddNewSence,
-                hidden: true
-            },
-            {
-                path: '/edit-sence',
-                name: '编辑场景',
-                component: EditSence,
-                hidden: true
-            },
-            {
-                path: '/container-manage',
-                name: '货柜管理',
-                component: ContainerManage,
-                hidden: true
-            },
-            {
-                path: '/edit-container',
-                name: '编辑货柜',
-                component: EditContainer,
-                hidden: true
-            },
-            {
-                path: '/add-container',
-                name: '新增货柜',
-                component: AddNewContainer,
-                hidden: true
-            },
-            {
-                path: '/waring-value-manage',
-                name: '预警值管理',
-                component: WarningValueManage,
-                hidden: true
-            },
-            {
-                path: '/container-type-manage',
-                name: '货柜类型管理',
-                component: ContainerTypeManage,
-                hidden: true
-            },
+                hidden: true,
+                redirect: '/messages/index',
+                component: {
+                    render(c) { return c('router-view') }
+                },
+                children: [
+                    { path: 'index', name: '消息', icon: 'ios-paper', component: _import('messages/Index') }
+                ]
+            }
         ]
     },
 

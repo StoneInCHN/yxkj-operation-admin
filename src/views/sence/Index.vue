@@ -26,19 +26,23 @@
             </Row>
          </Form>
     </Card>
-    <div class="btn-groups">
-        <div class="float-left">
-            <Button type="info"   @click="replenishMessageAction">补货信息</Button>
-            <Button type="success"  @click="qrCodeManageAction">二维码管理</Button>
-        </div>
-        <div class="float-right">
-            <Button type="success"  @click="addNewSecnceAction">新增</Button>
-            <Button type="error"  @click="deleteItem">删除</Button>
-        </div>
-     </div>
-     <div class="clearfix"></div>
-    <Table border ref="selection" :columns="columns4" :data="data1" ></Table>
-    <Page :current="2" :total="50" show-elevator></Page>
+    <br/>
+    <Card>
+        <div class="btn-groups">
+            <div class="float-left">
+                <Button type="info"   @click="replenishMessageAction">补货信息</Button>
+                <Button type="success"  @click="qrCodeManageAction">二维码管理</Button>
+            </div>
+            <div class="float-right">
+                <Button type="success"  @click="addNewSecnceAction">新增</Button>
+                <Button type="error"  @click="deleteItem">删除</Button>
+            </div>
+         </div>
+         <div class="clearfix"></div>
+        <Table border ref="selection" :columns="columns4" :data="data1" ></Table>
+        <Page :current="2" :total="50" show-elevator></Page>
+        <div class="clearfix"></div>
+    </Card>
 </div>
 </template>
 

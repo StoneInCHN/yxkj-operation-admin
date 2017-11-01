@@ -55,11 +55,15 @@
             </Row>
         </Form>
     </Card>
-    <div class="btn-groups">
-        <Button type="primary" size="large" ><Icon type="ios-download-outline"></Icon> Excel导出</Button>
-    </div>
-    <Table border :columns="columns1" :data="data1"></Table>
-    <Page :current="2" :total="50" show-elevator></Page>
+    <br/>
+    <Card>
+        <div class="btn-groups">
+            <Button type="primary" size="large" ><Icon type="ios-download-outline"></Icon> Excel导出</Button>
+        </div>
+        <Table border :columns="columns1" :data="data1"></Table>
+        <Page :current="2" :total="50" show-elevator></Page>
+        <div class="clearfix"></div>
+    </Card>
 </div>
 </template>
 

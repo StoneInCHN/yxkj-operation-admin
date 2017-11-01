@@ -1,5 +1,5 @@
 <template>
-<div>
+<Card>
     <div class="btn-groups">
         <div class="float-right">
             <Button type="success"  @click="add">新增</Button>
@@ -35,7 +35,7 @@
         </FormItem>
     </Form>
     </Modal>
-</div>
+</Card>
 </template>
 <script>
 	 export default {

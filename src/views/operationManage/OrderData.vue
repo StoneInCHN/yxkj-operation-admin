@@ -6,16 +6,16 @@
         </p>
         <Form :label-width="100" label-position="right" >
              <Row >
-                <Col span="6" >
-                    <FormItem label="开始日期">
-                        <DatePicker type="date" placeholder="选择日期" ></DatePicker>
-                    </FormItem>
-                </Col>
-                <Col span="6" >
-                    <FormItem label="结束日期">
-                        <DatePicker type="date" placeholder="选择日期" ></DatePicker>
-                    </FormItem>
-                </Col>
+                <Col span="6">
+                    <FormItem label="优享空间名称:">
+                        <Input v-model="name" placeholder="请输入优享空间名称"></Input>
+                     </FormItem>
+                 </Col>
+                 <Col span="6">
+                    <FormItem label="用户名:">
+                        <Input v-model="username" placeholder="请输入用户名"></Input>
+                     </FormItem>
+                 </Col>
                 <Col span="6">
                     <FormItem label="购买方式:">
                         <Select placeholder="请选择">
@@ -39,34 +39,33 @@
             </Row>
             <Row>
                 <Col span="6">
-                    <FormItem label="优享空间名称:">
-                        <Input v-model="name" placeholder="请输入优享空间名称"></Input>
-                     </FormItem>
-                 </Col>
-                 <Col span="6">
-                    <FormItem label="用户名:">
-                        <Input v-model="username" placeholder="请输入用户名"></Input>
-                     </FormItem>
-                 </Col>
-                 <Col span="6">
                     <FormItem label="订单号:">
                         <Input v-model="orderId" placeholder="请输入订单号"></Input>
                      </FormItem>
                  </Col>
+                <Col span="7" >
+                    <FormItem label="选择日期">
+                        <DatePicker type="daterange" placement="bottom-end" placeholder="选择日期" style="width: 200px"></DatePicker>
+                    </FormItem>
+                </Col>
                  <Col span="6">
                     <Button type="primary" icon="ios-search" class="search-btn">搜索</Button>
                  </Col>
             </Row>
         </Form>
     </Card>
-    <div class="btn-groups">
-        <Button type="info" >全部</Button>
-        <Button type="ghost" >已支付</Button>
-        <Button type="ghost" >已完成</Button>
-        <Button type="ghost" >未支付</Button>
-    </div>
-    <Table :columns="columns1" :data="data1" align="center"></Table>
-    <Page :current="2" :total="50" show-elevator ></Page>
+    <br/>
+    <Card>
+        <div class="btn-groups">
+            <Button type="info" >全部</Button>
+            <Button type="ghost" >已支付</Button>
+            <Button type="ghost" >已完成</Button>
+            <Button type="ghost" >未支付</Button>
+        </div>
+        <Table :columns="columns1" :data="data1" align="center"></Table>
+        <Page :current="2" :total="50" show-elevator ></Page>
+        <div class="clearfix"></div>
+    </Card>
 </div>
 </template>
 
@@ -170,7 +169,7 @@
 }
 </script>
 
-<style scoped>
+<style >
 
 </style>
 

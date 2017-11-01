@@ -1,12 +1,8 @@
 
 <template>
-<div>
+<Card>
   <Tabs value="name1">
     <TabPane label="香年广场T2" name="name1">
-      <Card>
-        <p slot="title">
-           <Icon type="ios-search"></Icon><span>新增场景</span>
-        </p>
         <Form :label-width="100" label-position="left">
           <FormItem label="货道数量: ">
               <Input style="width:200px;" disabled value="45"></Input>
@@ -37,10 +33,9 @@
               <Button > 返回 </Button>
           </FormItem>
         </Form> 
-      </Card>  
     </TabPane>
   </Tabs>
-</div>
+</Card>
 </template>
 
 <script>

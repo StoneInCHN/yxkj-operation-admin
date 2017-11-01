@@ -1,9 +1,5 @@
 <template>
-<div>
     <Card>
-        <p slot="title">
-           <Icon type="ios-search"></Icon><span>新增场景</span>
-        </p>
         <Form :label-width="100" label-position="left">
         <FormItem label="场景编号:">
             <Input  placeholder="请输入" style="width:200px;" value="223" disabled></Input>
@@ -94,8 +90,7 @@
              <Button type="info"> 重置 </Button>
         </FormItem>
     </Form>
-    </Card>
-</div>
+</Card>
 </template>
 
 <script>
