@@ -199,18 +199,6 @@
     }
 </script>
 
-<style scoped>
-.test {
-    margin-top: 20px;
-}
-.float-left{
-    float: left;
-}
-.float-right{
-    float: right;
-}
-.btn-groups {
-    margin: 10px;
-    overflow: hidden;
-}
+<style >
+
 </style>

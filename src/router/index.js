@@ -107,7 +107,16 @@ export const asyncRouterMap = [{
                 path: '/goods',
                 name: '商品管理',
                 icon: 'speedometer',
-                component: GoodsManage
+                redirect: '/goods/index',
+                component: {
+                    render(c) { return c('router-view') }
+                },
+                children: [
+                    { path: 'index', name: '商品列表', icon: 'ios-paper', component: _import('goodsManage/Index') },
+                    { path: 'add', name: '添加商品', hidden: true, icon: 'ios-paper', component: _import('goodsManage/AddGoods') },
+                    { path: 'edit', name: '编辑商品', hidden: true, icon: 'ios-paper', component: _import('goodsManage/EditGoods') },
+                    { path: 'goodsType', name: '商品分类管理',hidden: true, icon: 'ios-paper', component: _import('goodsManage/GoodsType') }
+                ]
             },
             {
                 path: '/role',
@@ -118,8 +127,34 @@ export const asyncRouterMap = [{
                 },
                 redirect: '/role/bulter',
                 children: [
-                    { path: 'bulter', name: '管家管理', icon: 'ios-paper', component: BulterManage },
-                    { path: 'property', name: '物业管理', icon: 'ios-paper', component: PropertyManage }
+                    { 
+                        path: 'bulter',
+                        name: '管家管理', 
+                        icon: 'ios-paper', 
+                        redirect: '/role/bulter/index',
+                        component: {
+                            render(c) { return c('router-view') }
+                        },
+                        children: [
+                            { path: 'index', name: '管家列表', icon: 'ios-paper', component: _import('roleManage/BulterManage') },
+                            { path: 'add', name: '新增管家信息', hidden: true, icon: 'ios-paper', component: _import('roleManage/AddBulter') },
+                            { path: 'edit', name: '修改管家信息', hidden: true, icon: 'ios-paper', component: _import('roleManage/EditBulter') }
+                        ]
+                    },
+                    { 
+                        path: 'property', 
+                        name: '物业管理', 
+                        icon: 'ios-paper', 
+                        redirect: '/role/property/index',
+                        component: {
+                            render(c) { return c('router-view') }
+                        },
+                        children: [
+                            { path: 'index', name: '物业列表', icon: 'ios-paper', component: _import('roleManage/PropertyManage') },
+                            { path: 'add', name: '新增物业信息', hidden: true, icon: 'ios-paper', component: _import('roleManage/AddProperty') },
+                            { path: 'edit', name: '修改物业信息', hidden: true, icon: 'ios-paper', component: _import('roleManage/EditProperty') }
+                        ]
+                    }
                 ]
             },
             {
