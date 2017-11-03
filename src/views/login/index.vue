@@ -1,55 +1,88 @@
  <template>
     <div class="login-container" >
       <Form ref="loginForm" autoComplete="on" :model="loginForm" :rules="loginRules" class="card-box login-form">
-        <Form-item prop="email">
-          <Input type="text" v-model="loginForm.email" placeholder="Username" autoComplete="on">
+        <Form-item prop="userName">
+          <Input type="text" v-model="loginForm.userName" placeholder="用户名" autoComplete="on">
           <Icon type="ios-person-outline" slot="prepend"></Icon>
           </Input>
         </Form-item>
         <Form-item prop="password">
-          <Input type="password" v-model="loginForm.password" placeholder="Password" @keyup.enter.native="handleLogin">
+          <Input type="password" v-model="loginForm.password" placeholder="用户名" @keyup.enter.native="handleLogin">
           <Icon type="ios-locked-outline" slot="prepend"></Icon>
           </Input>
         </Form-item>
+        <Form-item prop="captcha">
+          <Row>
+            <Col span="17">
+              <Input type="text" v-model="loginForm.captcha" placeholder="验证码" @keyup.enter.native="handleLogin">
+                <Icon type="ios-locked-outline" slot="prepend"></Icon>
+              </Input>
+            </Col>
+            <Col span="6">
+              <span style="padding-left:15px;height:47px;line-height:47px;cursor:pointer">
+                <img style="border-radius:3px" :src="captchaUrl" @click="changeCaptcha"/>
+              </span>
+            </Col>                        
+          </Row>
+        </Form-item> 
         <Form-item>
-          <Button type="primary" @click="handleLogin('loginForm')" long>登录</Button>
+          <Button type="primary" @click="handleLogin('loginForm')" style="font-size:16px;height:45px;width:100%">登 录</Button>
+        </Form-item>          
+        <Form-item>
+          <Checkbox v-model="loginForm.rememberMe" style="color:#fff;margin-left:2px;">&nbsp;记住用户名及密码</Checkbox>
+          <span class='tips'>{{errorTips}}</span>
         </Form-item>
-        <div class='tips'>admin账号为:admin@wz.com 密码123456</div>
-        <div class='tips'>editor账号:editor@wz.com 密码123456</div>
       </Form>
     </div>
   </template>
   <script>
-  import { isWscnEmail } from 'utils/validate';
-
+  import { isValidUserName, isValidPassword } from 'utils/validate';
+  import { uuid } from 'utils/index';
+  import Cookies from 'js-cookie';
+  import store from 'store'
   export default {
     name: 'login',
     data() {
-      const validateEmail = (rule, value, callback) => {
-        if (!isWscnEmail(value)) {
-          callback(new Error('请输入正确的合法邮箱'));
+      const validateUserName = (rule, value, callback) => {
+        if (!isValidUserName(value)) {
+          callback(new Error('请输入正确的用户名'));
         } else {
           callback();
         }
       };
-      const validatePass = (rule, value, callback) => {
-        if (value.length < 6) {
-          callback(new Error('密码不能小于6位'));
+      const lengthPassword = (rule, value, callback) => {
+        if (value.length < 6 || value.length > 16) {
+          callback(new Error('密码长度必须为6~16位'));
+        } else {
+          callback();
+        }
+      };
+      const validatePassword = (rule, value, callback) => {
+        if (!isValidPassword(value)) {
+          callback(new Error('请输入合法的密码'));
         } else {
           callback();
         }
       };
       return {
+        captchaUrl: '',
+        successTips: '',
+        errorTips: store.getters.tips,
         loginForm: {
-          email: 'admin@wz.com',
-          password: ''
+          userName: Cookies.get('Admin-userName'),
+          password: Cookies.get('Admin-password'),
+          captcha: '',
+          captchaId: '',
+          rememberMe: false,
+          autoLogin: false
         },
         loginRules: {
-          email: [
-            { required: true, trigger: 'blur', validator: validateEmail }
+          userName: [
+            { required: true, trigger: 'blur', validator: validateUserName }
           ],
           password: [
-            { required: true, trigger: 'blur', validator: validatePass }
+            { required: true, trigger: 'blur', validator: lengthPassword },
+            { required: true, trigger: 'blur', validator: validatePassword }
           ]
         },
         loading: false,
@@ -67,45 +100,51 @@
         this.$refs.loginForm.validate(valid => {
           if (valid) {
             this.loading = true;
-            this.$store.dispatch('LoginByEmail', this.loginForm).then(() => {
-              this.$Message.success('登录成功');
-
+            this.$store.dispatch('Login', this.loginForm).then(res => {             
               this.loading = false;
-              this.$router.push({ path: '/' });
+              //console.info("res:"+res);
+              if(res.code === '0000') {  
+                this.successTips = res.desc;   
+                this.$Message.success(this.successTips);       
+                console.info("denglsdf"); 
+                this.$router.push({ path: '/' });
+              } else {
+                this.errorTips = res.desc;
+                this.$Message.error(this.errorTips);    
+                this.changeCaptcha();            
+              }
             }).catch(err => {
               this.$message.error(err);
               this.loading = false;
             });
           } else {
-            console.log('error submit!!');
+            this.$message.error('请检查输入');
             return false;
           }
         });
       },
-      afterQRScan() {
-        // const hash = window.location.hash.slice(1);
-        // const hashObj = getQueryObject(hash);
-        // const originUrl = window.location.origin;
-        // history.replaceState({}, '', originUrl);
-        // const codeMap = {
-        //   wechat: 'code',
-        //   tencent: 'code'
-        // };
-        // const codeName = hashObj[codeMap[this.auth_type]];
-        // if (!codeName) {
-        // } else {
-        //   this.$store.dispatch('LoginByThirdparty', codeName).then(() => {
-        //     this.$router.push({ path: '/' });
-        //   });
-        // }
-      }
+    changeCaptcha(){          
+          this.loginForm.captchaId = uuid();
+          this.captchaUrl = '/yxkj-operation/common/captcha.jhtml?captchaId='+ this.loginForm.captchaId;
+          console.info(this.captchaUrl);
+    }
     },
     init() {
 
     },
     destroyed() {
       // window.removeEventListener('hashchange', this.afterQRScan);
-    }
+    },
+    created () {
+        if (this.errorTips) {
+          this.$Message.error(this.errorTips); 
+        }
+        this.loginForm.captchaId = uuid();
+        this.captchaUrl = '/yxkj-operation/common/captcha.jhtml?captchaId='+ this.loginForm.captchaId;
+        if (Cookies.get('RememberMe') == 'true') {
+            this.loginForm.rememberMe = true;
+        }
+    },
   }
 
   </script>
@@ -129,7 +168,7 @@
   <style rel="stylesheet/scss" lang="scss">
   .tips {
     font-size: 14px;
-    color: #fff;
+    color: #ff0000;
     margin-bottom: 5px;
   }
 
@@ -173,7 +212,7 @@
 
     .login-form {
       position: absolute;
-      top:15%;
+      top:8%;
       left: 0;
       right: 0;
       width: 400px;

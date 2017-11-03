@@ -7,5 +7,3 @@
       name: 'APP'
     }
 </script>
-<style>
-</style>

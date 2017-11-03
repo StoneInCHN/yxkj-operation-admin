@@ -36,9 +36,9 @@
                         <Icon type="arrow-down-b"></Icon>
                     </a>
                     <DropdownMenu slot="list">
-                        <DropdownItem >&nbsp&nbsp 复购1次以上&nbsp&nbsp</DropdownItem>
-                        <DropdownItem>  &nbsp&nbsp 复购1次以上 &nbsp&nbsp  </DropdownItem>
-                        <DropdownItem> &nbsp&nbsp  复购1次以上 &nbsp&nbsp  </DropdownItem>
+                        <DropdownItem >&nbsp;&nbsp; 复购1次以上&nbsp;&nbsp;</DropdownItem>
+                        <DropdownItem>  &nbsp;&nbsp; 复购1次以上 &nbsp;&nbsp;  </DropdownItem>
+                        <DropdownItem> &nbsp;&nbsp;  复购1次以上 &nbsp;&nbsp;  </DropdownItem>
                         <Dropdown placement="right-start" style="text-align: center;">
                          复购 <Input  size="small" placeholder="次数" style="width:60px"></Input> 次以上
                         </Dropdown>
