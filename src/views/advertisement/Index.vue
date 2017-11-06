@@ -99,8 +99,8 @@
 	                                	controls: "controls"
 	                                },
 	                                style: {
-	                                    width: '160px',
-	                                    height: '110px'
+	                                    width: '110px',
+	                                    height: '80px'
 	                                }
 	                        	}),
 	                        	h('div', {

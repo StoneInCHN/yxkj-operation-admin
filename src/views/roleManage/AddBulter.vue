@@ -1,133 +1,121 @@
 <template>
 <Card>
-    <Form :label-width="100" label-position="right">
-        <FormItem label="姓名">
+    <Form :label-width="100" label-position="right" :rules="ruleValidate" :model="dataInfo" ref="dataInfo">
+        <FormItem label="姓名" prop="realName">
              <Row>
                 <Col span="8">
-                     <Input ></Input>
+                     <Input v-model="dataInfo.realName" placeholder="请输入管家姓名"></Input>
                 </Col>
             </Row>
         </FormItem>
-        <FormItem label="账号" >
+        <FormItem label="账号"  prop="cellPhoneNum">
              <Row>
                 <Col span="8">
-                   <Input placeholder="请填写手机号"></Input>
+                   <Input v-model="dataInfo.cellPhoneNum" placeholder="请输入管家手机号"></Input>
                 </Col>
             </Row>
         </FormItem>
         <FormItem label="负责的优享空间">
             <Row>
                 <Col span="24">
-                     <Transfer
-                        :data="data3"
-                        :target-keys="targetKeys3"
+                    <Transfer
+                        :data="allScene"
+                        :target-keys="selectKeys"
                         :list-style="listStyle"
-                        :render-format="render3"
-                        :operations="['向左移动','向右移动']"
+                        :render-format="render"
+                        :titles="['可选优享空间', '已选优享空间']"
+                        :operations="['删除','添加']"
                         filterable
-                        @on-change="handleChange3">
+                        @on-change="handleChange">
                         <div :style="{float: 'right', margin: '5px'}">
-                            <Button type="ghost" size="small" @click="reloadMockData">刷新</Button>
-                        </div>
+                            <Button type="ghost" size="small" @click="reloadData">重置</Button>
+                        </div>        
                     </Transfer>
                 </Col>
             </Row>
         </FormItem>
-         <FormItem >
-             <Button type="primary"> 保存 </Button>
-             <Button type="info"> 重置 </Button>
+         <FormItem >             
+             <router-link to="/role/bulter/index"><Button type="primary"><Icon type="chevron-left"></Icon>&nbsp;返回</Button></router-link>
+             <Button type="primary" @click="handleSubmit('dataInfo')"> 保存 </Button>
         </FormItem>
     </Form>
 </Card>
 </template>
 
 <script>
+    import { getAllScene,addKeeper } from 'api/keeper'; 
+    import { isValidMobile } from 'utils/validate';
     export default {
           data () {
+            const validMobile = (rule, value, callback) => {
+              if (!isValidMobile(value)) {
+                callback(new Error('请输入正确的手机号'));
+              } else {
+                callback();
+              }
+            };
             return {
-                data3: this.getMockData(),
-                targetKeys3: this.getTargetKeys(),
+                allScene: [],
+                selectKeys: [],
                 listStyle: {
-                    width: '250px',
-                    height: '300px'
+                    width: '300px',
+                    height: '500px',
                 },
-                addressDatas: [{
-                    value: 'beijing',
-                    label: '北京',
-                    children: [
-                        {
-                            value: 'gugong',
-                            label: '故宫'
-                        },
-                        {
-                            value: 'tiantan',
-                            label: '天坛'
-                        },
-                        {
-                            value: 'wangfujing',
-                            label: '王府井'
-                        }
-                    ]
-                }, {
-                    value: 'jiangsu',
-                    label: '江苏',
-                    children: [
-                        {
-                            value: 'nanjing',
-                            label: '南京',
-                            children: [
-                                {
-                                    value: 'fuzimiao',
-                                    label: '夫子庙',
-                                }
-                            ]
-                        },
-                        {
-                            value: 'suzhou',
-                            label: '苏州',
-                            children: [
-                                {
-                                    value: 'zhuozhengyuan',
-                                    label: '拙政园',
-                                },
-                                {
-                                    value: 'shizilin',
-                                    label: '狮子林',
-                                }
-                            ]
-                        }
+                dataInfo:{},
+                ruleValidate: {
+                    realName: [
+                        { required: true, message: '管家姓名不能为空', trigger: 'blur' }
                     ],
-                }]
+                    cellPhoneNum: [
+                        { required: true, message: '管家手机号不能为空', trigger: 'blur' },
+                        { required: true, trigger: 'blur', validator: validMobile }         
+                    ],
+                },
             }
         },
         methods: {
-            getMockData () {
-                let mockData = [];
-                for (let i = 1; i <= 20; i++) {
-                    mockData.push({
-                        key: i.toString(),
-                        label: '内容' + i,
-                        description: '内容' + i + '的描述信息',
-                        disabled: Math.random() * 3 < 1
-                    });
-                }
-                return mockData;
+            handleChange (targetKeys) {
+                this.selectKeys = targetKeys;
+                this.dataInfo.sceneIds = this.selectKeys;
             },
-            getTargetKeys () {
-                return this.getMockData()
-                        .filter(() => Math.random() * 2 > 1)
-                        .map(item => item.key);
+            render (item) {
+                return item.label + ' - ' + item.key;
             },
-            handleChange3 (newTargetKeys) {
-                this.targetKeys3 = newTargetKeys;
+            reloadData(){              
+              getAllScene().then(response => {
+                if (response.code === '0000') {
+                    this.allScene = response.msg;
+                    this.selectKeys = [];                  
+                }               
+              }).catch(error => {
+                console.log(error)
+              });
             },
-            render3 (item) {
-                return item.label + ' - ' + item.description;
-            },
-            reloadMockData () {
-                this.data3 = this.getMockData();
-                this.targetKeys3 = this.getTargetKeys();
-            }
+            handleSubmit (name) {
+                this.$refs[name].validate((valid) => {
+                    if (valid) {
+                        if (this.dataInfo.sceneIds && this.dataInfo.sceneIds.length > 0) {
+                            addKeeper(this.dataInfo).then(response => {
+                              if (response.code === '0000') {
+                                this.$Message.success('提交成功!');
+                                //this.$router.push({path:'/role/bulter/index'})
+                                this.$router.push('index')
+                              }               
+                            }).catch(error => {
+                              console.log(error)
+                            }); 
+                        }else{
+                            this.$Message.error('请至少选择一个优享空间!');
+                        }                       
+                    }
+                })
+            },      
+        },
+        mounted (){
+                     
+        }, 
+        created(){
+            this.reloadData();  
         }
     }
 </script>

@@ -138,7 +138,7 @@ export const asyncRouterMap = [{
                         children: [
                             { path: 'index', name: '管家列表', icon: 'ios-paper', component: _import('roleManage/BulterManage') },
                             { path: 'add', name: '新增管家信息', hidden: true, icon: 'ios-paper', component: _import('roleManage/AddBulter') },
-                            { path: 'edit', name: '修改管家信息', hidden: true, icon: 'ios-paper', component: _import('roleManage/EditBulter') }
+                            { path: 'edit/:id', name: '修改管家信息', hidden: true, icon: 'ios-paper', component: _import('roleManage/EditBulter') }
                         ]
                     },
                     { 
