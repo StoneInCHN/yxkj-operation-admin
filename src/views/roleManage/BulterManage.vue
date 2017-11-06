@@ -57,7 +57,7 @@ import sceneList from './SceneList.vue';
                         render: (h, params) => {
                             const scenes=params.row.scenes;
                             if (scenes && scenes.length > 0) {
-                                  return h(sceneList, {props: {scenes: scenes}})
+                                  return h(sceneList, {props: {scenes: scenes, keeper: true}})
                             }else{
                                   return "无";
                             } 
@@ -128,7 +128,11 @@ import sceneList from './SceneList.vue';
                             }else{
                               this.changePage(this.pageNumber);
                             } 
-                            this.$Message.info('密码重置成功');
+                            this.$Notice.success({
+                                title:'操作成功',
+                                desc:'管家 <b style="color:#f60">'+selectedRow.realName+'</b>（账户：'+ selectedRow.cellPhoneNum+'）的密码已重置，新密码已经短信发送到管家手机上。',
+                                duration: 0
+                            });
                         }else{
                             this.$Message.info(response.desc);
                         }              
@@ -170,7 +174,7 @@ import sceneList from './SceneList.vue';
                             }else{
                               this.changePage(this.pageNumber);
                             } 
-                            this.$Message.info('批量'+ response.desc);
+                            this.$Message.info(response.desc);
                         }else{
                             this.$Message.info(response.desc);
                         }              

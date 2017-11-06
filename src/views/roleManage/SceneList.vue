@@ -1,14 +1,16 @@
 <template>
     <div>
         <p v-for="(scene, index) in scenes">
-        <span class="scene" @click="click(scene.id)">{{index+1}} - {{scene.name}}</span>
+        <span v-if="keeper" class="scene" @click="click(scene.id)">{{index+1}} - {{scene.name}}</span>
+        <span v-else class="scene" @click="click(scene.id)">{{index+1}} - {{scene.name}} —— {{scene.fenRunPoint}}%</span>
         </p>
     </div>    
 </template>
 <script>
     export default {
         props: {
-            scenes: Array
+            scenes: Array,
+            keeper: Boolean
         },
         data () {
             return {
