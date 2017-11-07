@@ -23,7 +23,7 @@
             },
         },
         created () {
-            console.info(this.index);
+            //console.info(this.index);
         },
     }
 </script>

@@ -79,7 +79,7 @@ import sceneList from './SceneList.vue';
                                     },
                                     on: {
                                         click: () => {
-                                            this.$router.push({path:'/role/bulter/edit/'+params.row.id })
+                                            this.$router.push({path:'/role/property/edit/'+params.row.id })
                                         }
                                      }
                                 }, '编辑'),

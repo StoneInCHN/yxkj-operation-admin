@@ -16,7 +16,7 @@
             </Row>
         </FormItem>
         <FormItem label="负责的优享空间">
-            <sceneCart v-for="scene in dataInfo.scenes" :scene="scene" :scenes="dataInfo.scenes" key ="scene.id"></sceneCart>           
+            <sceneCart v-for="scene in dataInfo.scenes" :scene="scene" :scenes="dataInfo.scenes" :allScene="allScene" :key ="scene.id"></sceneCart>           
         </FormItem>
         <FormItem label="">
             <Button type="success" icon="plus" @click="add"> 新增 </Button>           
@@ -30,8 +30,8 @@
 </template>
 
 <script>
-    import { getAllScene,addKeeper } from 'api/keeper'; 
-    import { isValidMobile } from 'utils/validate';
+    import { getAllScene,addKeeper } from 'api/property'; 
+    import { isValidMobile,percent } from 'utils/validate';
     import sceneCart from './SceneCart.vue';
     export default {
           components: { sceneCart },
@@ -44,9 +44,7 @@
               }
             };
             return {
-                template: {id:null,point:null},
                 allScene: [],
-                selectKeys: [],
                 listStyle: {
                     width: '300px',
                     height: '500px',
@@ -66,18 +64,13 @@
             }
         },
         methods: {
-            handleChange (targetKeys) {
-                this.selectKeys = targetKeys;
-                this.dataInfo.sceneIds = this.selectKeys;
-            },
             render (item) {
                 return item.label + ' - ' + item.key;
             },
             reloadData(){              
               getAllScene().then(response => {
                 if (response.code === '0000') {
-                    this.allScene = response.msg;
-                    this.selectKeys = [];                  
+                    this.allScene = response.msg;                  
                 }               
               }).catch(error => {
                 console.log(error)
@@ -86,7 +79,22 @@
             handleSubmit (name) {
                 this.$refs[name].validate((valid) => {
                     if (valid) {
-                        if (this.dataInfo.sceneIds && this.dataInfo.sceneIds.length > 0) {
+                        if (this.dataInfo.scenes && this.dataInfo.scenes.length > 0) {
+                            for (var i = 0; i < this.dataInfo.scenes.length; i++) {
+                                var scene = this.dataInfo.scenes[i];
+                                if (scene.id == null) {
+                                    this.$Message.error('请选择负责的优享空间!');
+                                    break;
+                                }
+                                if (scene.point == null) {
+                                    this.$Message.error('请输入分润点!');
+                                    break;
+                                }
+                                if(!percent(scene.point)) {
+                                    this.$Message.error('请输入正确的分润点!');
+                                    break;
+                                }
+                            }
                             addKeeper(this.dataInfo).then(response => {
                               if (response.code === '0000') {
                                 this.$Message.success('提交成功!');
@@ -103,19 +111,15 @@
                 })
             },  
             add(){
-                this.dataInfo.scenes.push(this.template);
-            },
-            remove(){
-                this.dataInfo.scenes.pop(this.template);
-            },
-             
+                this.dataInfo.scenes.push({id:null,point:null});
+            },             
         },
         mounted (){
                      
         }, 
         created(){
             this.reloadData();  
-            this.dataInfo.scenes.push(this.template);
+            this.dataInfo.scenes.push({id:null,point:null});
         }
     }
 </script>

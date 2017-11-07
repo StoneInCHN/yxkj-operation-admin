@@ -70,6 +70,12 @@ export function oneOf (value, validList) {
     return false;
 }
 
+/* 大于等于0小于等于100正数*/
+export function percent(str) {
+  const reg = /^100$|^(\d|[1-9]\d)(\.\d+)*$/;
+  return reg.test(str);
+}
+
 
 
 

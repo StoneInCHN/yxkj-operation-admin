@@ -20,7 +20,7 @@ export function addKeeper(dataInfo) {
   const data = {
       realName: dataInfo.realName,  
       cellPhoneNum: dataInfo.cellPhoneNum,  
-      sceneIds: dataInfo.sceneIds,
+      idPoints: dataInfo.scenes,
       userName: store.getters.user.userName
   };
   return fetch('/yxkj-operation/admin/propertyKeeper/addKeeper.jhtml', data)
@@ -37,7 +37,7 @@ export function updateKeeper(dataInfo) {
   	  id:dataInfo.id,
       realName: dataInfo.realName,  
       cellPhoneNum: dataInfo.cellPhoneNum,  
-      sceneIds: dataInfo.sceneIds,
+      idPoints: dataInfo.scenes,
       userName: store.getters.user.userName
   };
   return fetch('/yxkj-operation/admin/propertyKeeper/updateKeeper.jhtml', data)

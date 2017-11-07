@@ -152,7 +152,7 @@ export const asyncRouterMap = [{
                         children: [
                             { path: 'index', name: '物业列表', icon: 'ios-paper', component: _import('roleManage/PropertyManage') },
                             { path: 'add', name: '新增物业信息', hidden: true, icon: 'ios-paper', component: _import('roleManage/AddProperty') },
-                            { path: 'edit', name: '修改物业信息', hidden: true, icon: 'ios-paper', component: _import('roleManage/EditProperty') }
+                            { path: 'edit/:id', name: '修改物业信息', hidden: true, icon: 'ios-paper', component: _import('roleManage/EditProperty') }
                         ]
                     }
                 ]
