@@ -178,7 +178,8 @@ import { goodsPage,deleteGoods } from 'api/goods';
                                     },
                                     on: {
                                         click: () => {
-                                            this.edit()
+                                            //this.edit()
+                                            this.$router.push({path:'/goods/edit/'+params.row.id })
                                         }
                                     }
                                 }, '编辑')
@@ -196,7 +197,7 @@ import { goodsPage,deleteGoods } from 'api/goods';
               const vue = this;
               this.list_loadding=true;
               this.getPageList(pNum, this.filterData)
-              console.info(this.filterData);
+              //console.info(this.filterData);
             },
             getPageList(pNum, filterData) {                
               goodsPage(pNum, this.pageSize, filterData).then(response => {

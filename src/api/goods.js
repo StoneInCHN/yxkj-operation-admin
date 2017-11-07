@@ -28,7 +28,7 @@ export function goodsCate(dataInfo) {
 
 
 export function goodsPage(pNum, pSize, filterData) {
-  console.info(filterData);
+  //console.info(filterData);
   const data = {
   	  pageNumber: pNum,
       pageSize: pSize,

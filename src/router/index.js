@@ -114,7 +114,7 @@ export const asyncRouterMap = [{
                 children: [
                     { path: 'index', name: '商品列表', icon: 'ios-paper', component: _import('goodsManage/Index') },
                     { path: 'add', name: '添加商品', hidden: true, icon: 'ios-paper', component: _import('goodsManage/AddGoods') },
-                    { path: 'edit', name: '编辑商品', hidden: true, icon: 'ios-paper', component: _import('goodsManage/EditGoods') },
+                    { path: 'edit/:id', name: '编辑商品', hidden: true, icon: 'ios-paper', component: _import('goodsManage/EditGoods') },
                     { path: 'goodsType', name: '商品分类管理',hidden: true, icon: 'ios-paper', component: _import('goodsManage/GoodsType') }
                 ]
             },
