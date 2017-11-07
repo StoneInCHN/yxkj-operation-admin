@@ -112,9 +112,9 @@ import sceneList from './SceneList.vue';
               this.list_loadding=true;
               this.getPageList(pNum)
             },
-              add () {
+            add () {
                   this.$router.push('add')
-              },
+            },
             resetPwd (selectedRow) {
               this.selectedRow = selectedRow;
               this.$Modal.confirm({

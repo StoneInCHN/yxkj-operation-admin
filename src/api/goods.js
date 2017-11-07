@@ -27,14 +27,15 @@ export function goodsCate(dataInfo) {
 }
 
 
-export function getGoodsList(pNum, pSize, filterData) {
+export function goodsPage(pNum, pSize, filterData) {
+  console.info(filterData);
   const data = {
   	  pageNumber: pNum,
       pageSize: pSize,
       goodsData: filterData,
       userName: store.getters.user.userName
   };
-  return fetch('/yxkj-operation/admin/goods/getGoodsList.jhtml', data)
+  return fetch('/yxkj-operation/admin/goods/goodsPage.jhtml', data)
 }
 export function deleteGoods(ids) {
   const data = {
