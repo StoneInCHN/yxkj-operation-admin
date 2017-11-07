@@ -84,15 +84,15 @@
                                 var scene = this.dataInfo.scenes[i];
                                 if (scene.id == null) {
                                     this.$Message.error('请选择负责的优享空间!');
-                                    break;
+                                    return false;
                                 }
                                 if (scene.point == null) {
                                     this.$Message.error('请输入分润点!');
-                                    break;
+                                    return false;
                                 }
                                 if(!percent(scene.point)) {
                                     this.$Message.error('请输入正确的分润点!');
-                                    break;
+                                    return false;
                                 }
                             }
                             updateKeeper(this.dataInfo).then(response => {

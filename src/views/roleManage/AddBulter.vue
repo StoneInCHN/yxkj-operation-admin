@@ -98,8 +98,7 @@
                             addKeeper(this.dataInfo).then(response => {
                               if (response.code === '0000') {
                                 this.$Message.success('提交成功!');
-                                //this.$router.push({path:'/role/bulter/index'})
-                                this.$router.push('index')
+                                this.$router.push({path:'/role/bulter/index'})
                               }               
                             }).catch(error => {
                               console.log(error)
