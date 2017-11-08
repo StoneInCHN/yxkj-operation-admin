@@ -31,7 +31,7 @@
         <div class="btn-groups">
             <div class="float-left">
                 <Button type="info"   @click="goodsType">商品分类管理</Button>
-                <Button type="success"  @click="excelImport">Excel导入</Button>
+                <Button type="success"  @click="excelImport"><Icon type="ios-upload-outline"></Icon> Excel导入</Button>
             </div>
             <div class="float-right">
                 <Button type="primary"  icon="android-add" @click="add">新增</Button>
@@ -47,6 +47,18 @@
                   </div>
         </div>
         <Page :total="this.pageTotal" show-total show-elevator @on-change="changePage" class="page-style"></Page>
+        <Modal title="导入Excel" v-model="visible_excelImport">
+                <Upload 
+                  action="/yxkj-operation/file/dataImport"
+                  :format="['xls','xlsx']"
+                  :max-size="1024"
+                  :on-success="handleSuccess"
+                  :on-format-error="handleFormatError"
+                  :on-exceeded-size="handleMaxSize">
+                    <Button type="ghost" icon="ios-cloud-upload-outline">导入Excel</Button>
+                </Upload>
+                备注：首先下载<a href="/yxkj-operation/upload/template/goods.xlsx">Excel模板</a>，再导入
+            </Modal>
         <div class="clearfix"></div>
     </Card>
 </div>
@@ -58,17 +70,18 @@ import { goodsPage,deleteGoods } from 'api/goods';
     export default {
             data () {
             return {
-              selectedRow: {},
-              selectedRows: [],
-              pageTotal:0,
-              pageNumber:1,
-              pageSize:10,
-              page_list:[],
-              filterData:{
-                sn:'',
-                name:''
-              },
-              list_loadding:false,
+                selectedRow: {},
+                selectedRows: [],
+                pageTotal:0,
+                pageNumber:1,
+                pageSize:10,
+                page_list:[],
+                filterData:{
+                  sn:'',
+                  name:''
+                },
+                visible_excelImport: false,
+                list_loadding: false,
                 modalDelete: false,
                 modal_loading: false,
                 columns: [
@@ -161,7 +174,6 @@ import { goodsPage,deleteGoods } from 'api/goods';
                                 } 
                         } 
                     },  
-
                     {
                         title: '操作',
                         key: 'action',
@@ -246,9 +258,33 @@ import { goodsPage,deleteGoods } from 'api/goods';
                 this.$router.push({
                     path: 'add'
                 })
-            },
+            },            
             excelImport () {
-            	alert("Excel导入")
+            	this.visible_excelImport = true;
+            },
+            handleFormatError (file) {
+                this.$Notice.warning({
+                    title: '文件格式不正确',
+                    desc: '文件 ' + file.name + ' 格式不正确，请上传正确格式的Excel'
+                });
+            },
+            handleMaxSize (file) {
+                this.$Notice.warning({
+                    title: '超出文件大小限制',
+                    desc: '文件 ' + file.name + '太大，不能超过 1M'
+                });
+            },
+            handleSuccess (res, file) {
+                this.visible_excelImport = false;
+                this.$Modal.warning({
+                  title:'提示',
+                  content:res.desc,
+                  onOk:(()=>{
+
+                  })
+                });
+                //this.$Message.success('导入成功！');                
+                this.changePage(1);
             },
             edit () {
                 this.$router.push({
@@ -256,7 +292,7 @@ import { goodsPage,deleteGoods } from 'api/goods';
                 })
             },
             goodsType () {
-				this.$router.push({
+				      this.$router.push({
                     path: 'goodsType'
                 })
             },

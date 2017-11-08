@@ -31,6 +31,10 @@ export function isPositiveNumber(str) {
   const reg = /^\d*\.?\d+$/;
   return reg.test(str);
 }
+export function isPositiveNum(str) {
+  const reg = /^\d+$/;
+  return reg.test(str);
+}
 export function validSn(str) {
   const reg = /^[a-zA-Z0-9 ]{0,}$/;
   return reg.test(str);

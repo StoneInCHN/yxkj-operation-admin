@@ -172,10 +172,10 @@ import { goodsCatePage, deleteGoodsCate, goodsCate } from 'api/goods';
                 })
             },
             
-            cancel () {
-                this.newFlag = false
-                this.typeName= ''
-            },
+            // cancel () {
+            //     this.newFlag = false
+            //     this.typeName= ''
+            // },
             // save () {
             //     if (this.newFlag) {
             //         let typeObj = {
