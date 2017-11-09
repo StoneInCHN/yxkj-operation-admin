@@ -55,6 +55,7 @@
 <script>
 import { scenePage,deleteScene } from 'api/scene';
 import { parseTime } from 'utils/index';
+import rowExpand from './SceneExpand.vue';
     export default {
 
             data () {
@@ -76,6 +77,15 @@ import { parseTime } from 'utils/index';
                         width: 60,
                         align: 'center'
                     },
+                    {
+                        type: 'expand',
+                        width: 30,
+                        align: 'center',
+                        ellipsis:'true',
+                        render: (h, params) => {
+                            return h(rowExpand, {props: {row: params.row}})
+                        }
+                     },
                     {
                         title: '编号',
                         key: 'sn',

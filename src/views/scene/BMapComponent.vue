@@ -34,12 +34,12 @@
       },
       longitude:{
         type:Number,
-        default:116.404
+        default:104.072313,
       },
       // 纬度
       latitude:{
         type:Number,
-        default:39.915
+        default:30.663517,
       },
     },
     methods: {
@@ -50,15 +50,13 @@
     mounted(){
             var _this = this;
             var map = new BMap.Map("allmap");    
-            var point = new BMap.Point(_this.mapData.longitude,_this.mapData.latitude);
-            var marker = new BMap.Marker(point);
-            var geocoder = new BMap.Geocoder();
-
-            map.centerAndZoom(point,12);
-            map.addOverlay(marker);            
             map.enableScrollWheelZoom(true);
+            map.centerAndZoom(new BMap.Point(this.longitude,this.latitude),12);
+            var point = new BMap.Point(_this.mapData.longitude,_this.mapData.latitude);            
+            var marker = new BMap.Marker(point);
+            map.addOverlay(marker);
             marker.enableDragging();
-            
+            var geocoder = new BMap.Geocoder();
             map.addEventListener("click", function(e){
                 if(marker){
                   map.removeOverlay(marker);

@@ -72,14 +72,22 @@
                 </Col>
             </Row>
         </FormItem>
-        <FormItem label="默认重启时间" prop="rebootTime">
-            <TimePicker format="HH点mm分ss秒" placeholder="选择时间" style="width: 168px" v-model="dataInfo.rebootTime"></TimePicker>
+        <FormItem label="默认重启时间">
+            <Row>
+                <Col span="8">
+                    <TimePicker placeholder="选择时间" :value="dataInfo.rebootTime" :clearable="false"></TimePicker>
+                </Col>
+            </Row>
         </FormItem>
         <FormItem label="是否含微仓" prop="hasStore">
-            <Select  style="width:200px;" v-model="dataInfo.hasStore">
-                <Option value="true">是</Option>
-                <Option value="false">否</Option>
-            </Select>
+            <Row>
+                <Col span="8">            
+                    <Select v-model="dataInfo.hasStore">
+                        <Option value="true">是</Option>
+                        <Option value="false">否</Option>
+                    </Select>
+                </Col>
+            </Row>
         </FormItem>
          <FormItem >
              <router-link to="/scene/index"><Button type="primary"><Icon type="chevron-left"></Icon>&nbsp;返回</Button></router-link>
@@ -105,6 +113,7 @@ import store from 'store';
                     longitude: 104.072313,
                     latitude: 30.663517,
                     address: null,
+                    rebootTime: "02:00:00"
                 },
                 areas: [],
                 ruleValidate: {
@@ -121,9 +130,9 @@ import store from 'store';
                     rebootDay: [
                         { required: true, message: '重启间隔天数不能为空', trigger: 'blur' }    
                     ], 
-                    rebootTime: [
-                        { required: true, type: 'date', message: '重启时间不能为空', trigger: 'change' }
-                    ],
+                    // rebootTime: [
+                    //     { required: true, type: 'date', message: '重启时间不能为空', trigger: 'change' }
+                    // ],
                     hasStore: [
                         { required: true, message: '请选择是否含微仓', trigger: 'blur' }    
                     ], 

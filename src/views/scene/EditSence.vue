@@ -2,7 +2,17 @@
     <Card>
         <Form ref="dataInfo" :model="dataInfo" :rules="ruleValidate" :label-width="100">
         <FormItem label="场景编号:">
-            <Input style="width:200px;"  v-model="dataInfo.sn" disabled></Input>
+            <Row>
+                      <Col span="4">
+                        <Input v-model="dataInfo.sn" disabled></Input>
+                      </Col>
+                      <Col span="1">&nbsp;</Col>        
+                      <Col span="4">
+                        <Tooltip content="自动生成" placement="right">
+                          <Icon size="large" color="#0000ff" type="information-circled"></Icon>
+                        </Tooltip>
+                      </Col>
+            </Row>            
         </FormItem>
         <FormItem label="开业日期" prop="openTime">
             <Row>
@@ -14,7 +24,7 @@
         <FormItem label="所在地区" prop="area">
              <Row>
                 <Col span="8">
-                    {{dataInfo.area}}
+                    {{dataInfo.areaFullName}}
                 </Col>
             </Row>
         </FormItem>
@@ -82,14 +92,22 @@
                 </Col>
             </Row>
         </FormItem>
-        <FormItem label="默认重启时间" prop="rebootTime">
-            <TimePicker format="HH点mm分ss秒" placeholder="选择时间" style="width: 168px" v-model="dataInfo.rebootTime"></TimePicker>
+        <FormItem label="默认重启时间">
+            <Row>
+                <Col span="8">
+                    <TimePicker placeholder="选择时间" :value="dataInfo.rebootTime" :clearable="false" @on-change="changeTime"></TimePicker>
+                </Col>
+            </Row>
         </FormItem>
         <FormItem label="是否含微仓" prop="hasStore">
-            <Select  style="width:200px;" v-model="dataInfo.hasStore">
-                <Option value="true">是</Option>
-                <Option value="false">否</Option>
-            </Select>
+            <Row>
+                <Col span="8">            
+                    <Select v-model="dataInfo.hasStore">
+                        <Option value="true">是</Option>
+                        <Option value="false">否</Option>
+                    </Select>
+                </Col>
+            </Row>
         </FormItem>
          <FormItem >
              <router-link to="/scene/index"><Button type="primary"><Icon type="chevron-left"></Icon>&nbsp;返回</Button></router-link>
@@ -109,38 +127,32 @@ import store from 'store';
         components: { BMapComponent },
           data () {
             return {    
-                id:null,          
-                dataInfo:{
-                    showMap: false,
-                    volume:60,
-                    longitude: 104.072313,
-                    latitude: 30.663517,
-                    address: null,
-                },
+                id:null,      
+                dataInfo:{},
                 areas: [],
                 ruleValidate: {
                     name: [
                         { required: true, message: '优享空间名称不能为空', trigger: 'blur' },
                         //{ required: true, trigger: 'blur', validator: lengthSn },
                     ],
-                    openTime: [
-                        { required: true, type: 'date', message: '开业日期不能为空', trigger: 'change' }
-                    ],
+                    // openTime: [
+                    //     { required: true, type: 'date', message: '开业日期不能为空', trigger: 'change' }
+                    // ],
                     imei: [
                         { required: true, message: '中控IMEI不能为空', trigger: 'blur' }    
                     ], 
                     rebootDay: [
                         { required: true, message: '重启间隔天数不能为空', trigger: 'blur' }    
                     ], 
-                    rebootTime: [
-                        { required: true, type: 'date', message: '重启时间不能为空', trigger: 'change' }
-                    ],
+                    // rebootTime: [
+                    //     { required: true, type: 'date', message: '重启时间不能为空', trigger: 'change' }
+                    // ],
                     hasStore: [
                         { required: true, message: '请选择是否含微仓', trigger: 'blur' }    
                     ], 
-                    area: [
-                        { required: true, type: 'array', message: '请选择优享空间地址', trigger: 'change' }
-                    ],
+                    // area: [
+                    //     { required: true, type: 'array', message: '请选择优享空间地址', trigger: 'change' }
+                    // ],
                     address: [
                         { required: true, message: '详细地址不能为空', trigger: 'change' }  
                     ],
@@ -152,10 +164,11 @@ import store from 'store';
         },
         methods: {
             showMapModal(){
+                console.info(this.dataInfo);
                 this.dataInfo.showMap = true;
             },
-            handleSubmit (name) {
-                this.$refs[name].validate((valid) => {             
+            handleSubmit (name) {               
+                this.$refs[name].validate((valid) => {                             
                     if (valid) {
                         updateScene(this.id,this.dataInfo).then(response => {
                             console.info(response);
@@ -180,7 +193,7 @@ import store from 'store';
                 getSceneData(this.id).then(response => {
                     if (response.code === '0000') {
                         this.dataInfo = response.msg;
-                    }               
+                   }              
                 }).catch(error => {
                     console.log(error)
                 });
@@ -201,11 +214,14 @@ import store from 'store';
               this.dataInfo.area = value;
               //console.info(this.dataInfo);
             },
+            changeTime(value){
+                this.dataInfo.rebootTime = value;
+            }
         },
-        created(){            
-             this.getAreaList();
+        created(){   
              this.id = this.$route.params.id;
-            this.getSceneInfo();
+             this.getSceneInfo();         
+             this.getAreaList();             
         }
     }
 </script>
