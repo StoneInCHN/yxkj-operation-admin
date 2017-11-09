@@ -39,7 +39,9 @@ module.exports = {
         }
     },
     externals: {
+        BMap: "BMap",
         jquery: 'jQuery'
+        
     },
     module: {
         rules: [

@@ -114,7 +114,7 @@
                     </Modal>
         </FormItem>        
          <FormItem >
-            <router-link to="/goods/index"><Button type="primary"><Icon type="chevron-left"></Icon>&nbsp;返回</Button></router-link>
+             <router-link to="/goods/index"><Button type="primary"><Icon type="chevron-left"></Icon>&nbsp;返回</Button></router-link>
              <Button type="primary" @click="handleSubmit('dataInfo')"> 保存 </Button>
              <Button type="info"> 重置 </Button>
         </FormItem>
@@ -181,7 +181,7 @@ import { goodsCatePage, addGoods, isExistSn } from 'api/goods';
                         { required: true, message: '净含量不能为空', trigger: 'blur' }    
                     ],
                     // categoryId: [
-                    //     { required: true, message: '商品分类不能为空', trigger: 'change' }            
+                    //     { required: true, type: 'array', message: '请选择商品分类', trigger: 'change' }
                     // ],
                     costPrice: [
                         { required: true, trigger: 'blur', validator: validPrice }

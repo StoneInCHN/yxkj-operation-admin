@@ -32,7 +32,7 @@ export function getAreaList() {
           userName: store.getters.user.userName
       };
       console.info("need get areas");
-      return fetch('/yxkj-operation/admin/company/getAreaList.jhtml', data)
+      return fetch('/yxkj-operation/admin/scene/getAreaList.jhtml', data)
 }
 export function getHomeData() {
 

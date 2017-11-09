@@ -18,9 +18,9 @@
                 </Col>
                 <Col span="6">
                 <div style="margin-left:-10px;">  
-                    <Form-item>
+                    <FormItem>
                         <Button type="primary" icon="ios-search" @click="changePage(1)">搜索</Button>
-                    </Form-item>
+                    </FormItem>
                 </div>
                 </Col>
             </Row>
@@ -58,7 +58,7 @@
                     <Button type="ghost" icon="ios-cloud-upload-outline">导入Excel</Button>
                 </Upload>
                 备注：首先下载<a href="/yxkj-operation/upload/template/goods.xlsx">Excel模板</a>，再导入
-            </Modal>
+        </Modal>
         <div class="clearfix"></div>
     </Card>
 </div>
@@ -82,8 +82,8 @@ import { goodsPage,deleteGoods } from 'api/goods';
                 },
                 visible_excelImport: false,
                 list_loadding: false,
-                modalDelete: false,
-                modal_loading: false,
+                // modalDelete: false,
+                // modal_loading: false,
                 columns: [
                     {
                         type: 'selection',
@@ -286,11 +286,11 @@ import { goodsPage,deleteGoods } from 'api/goods';
                 //this.$Message.success('导入成功！');                
                 this.changePage(1);
             },
-            edit () {
-                this.$router.push({
-                    path: 'edit'
-                })
-            },
+            // edit () {
+            //     this.$router.push({
+            //         path: 'edit'
+            //     })
+            // },
             goodsType () {
 				      this.$router.push({
                     path: 'goodsType'

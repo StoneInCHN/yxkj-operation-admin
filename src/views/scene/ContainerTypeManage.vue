@@ -229,8 +229,11 @@ import { isPositiveNum } from 'utils/validate';
                             });                                            
                     }
                 })
-            },
-        }
+            },            
+        },
+        mounted(){
+                this.changePage(1);
+        },
     }
 </script>
 <style>

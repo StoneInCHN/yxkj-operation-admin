@@ -10,18 +10,18 @@ import DataDetail from '@/views/operationManage/DataDetail'
 import UserData from '@/views/operationManage/UserData'
 import OrderData from '@/views/operationManage/OrderData'
 import IncomeData from '@/views/operationManage/IncomeData'
-import ReplenishMessage from '@/views/sence/ReplenishMessage'
-import QRCodeManage from '@/views/sence/QRCodeManage'
-import AddNewContainer from '@/views/sence/AddNewContainer'
-import EditContainer from '@/views/sence/EditContainer'
-import ContainerManage from '@/views/sence/ContainerManage'
+import ReplenishMessage from '@/views/scene/ReplenishMessage'
+import QRCodeManage from '@/views/scene/QRCodeManage'
+import AddNewContainer from '@/views/scene/AddNewContainer'
+import EditContainer from '@/views/scene/EditContainer'
+import ContainerManage from '@/views/scene/ContainerManage'
 import GoodsManage from '@/views/goodsManage/Index'
 import BulterManage from '@/views/roleManage/BulterManage'
 import PropertyManage from '@/views/roleManage/PropertyManage'
-import EditSence from '@/views/sence/EditSence'
-import AddNewSence from '@/views/sence/AddNewSence'
-import WarningValueManage from '@/views/sence/WarningValueManage'
-import ContainerTypeManage from '@/views/sence/ContainerTypeManage'
+import EditSence from '@/views/scene/EditSence'
+import AddNewSence from '@/views/scene/AddNewSence'
+import WarningValueManage from '@/views/scene/WarningValueManage'
+import ContainerTypeManage from '@/views/scene/ContainerTypeManage'
 /* login */
 const Login = _import('login/index');
 Vue.use(Router);
@@ -71,34 +71,35 @@ export const asyncRouterMap = [{
                 ]
             },
             {
-                path: '/sence',
+                path: '/scene',
                 name: '优享空间',
                 icon: 'speedometer',
-                redirect: '/sence/index',
+                redirect: '/scene/index',
                 component: {
                     render(c) { return c('router-view') }
                 },
                 children: [
-                    { path: 'index', name: '优享空间', icon: 'ios-paper', component: _import('sence/Index') },
-                    { path: 'add', name: '添加、编辑优享空间', hidden: true, icon: 'android-people', component: _import('sence/AddNewSence') },
-                    { path: 'qrCode', name: '二维码管理', hidden: true, icon: 'android-people', component: _import('sence/QRCodeManage') },
-                    { path: 'replenish', name: '二维码管理', hidden: true, icon: 'android-people', component: _import('sence/ReplenishMessage') },
-                    { path: 'container-type', name: '货柜类型', icon: 'ios-paper', component: _import('sence/ContainerTypeManage') },
+                    { path: 'index', name: '优享空间', icon: 'ios-paper', component: _import('scene/Index') },
+                    { path: 'add', name: '添加优享空间', hidden: true, icon: 'android-people', component: _import('scene/AddNewSence') },
+                    { path: 'edit/:id', name: '编辑优享空间', hidden: true, icon: 'android-people', component: _import('scene/EditSence') },
+                    { path: 'qrCode', name: '二维码管理', hidden: true, icon: 'android-people', component: _import('scene/QRCodeManage') },
+                    { path: 'replenish', name: '二维码管理', hidden: true, icon: 'android-people', component: _import('scene/ReplenishMessage') },
+                    { path: 'container-type', name: '货柜类型', icon: 'ios-paper', component: _import('scene/ContainerTypeManage') },
                     { 
                         path: 'containers',
                         name: '货柜管理',
                         icon: 'android-people',
                         hidden: true,
-                        redirect: '/sence/containers/index',
+                        redirect: '/scene/containers/index',
                         component: {
                             render(c) { return c('router-view') }
                         },
                         children: [
-                            { path: 'index', name: '货柜管理', icon: 'ios-paper', component: _import('sence/ContainerManage') },
-                            { path: 'add', name: '添加货柜', icon: 'ios-paper', component: _import('sence/AddNewContainer') },
-                            { path: 'edit', name: '编辑货柜', icon: 'ios-paper', component: _import('sence/EditContainer') },
-                            { path: 'channel', name: '货道管理', icon: 'ios-paper', component: _import('sence/Channel') },
-                            { path: 'channel-management', name: '编辑货柜', icon: 'ios-paper', component: _import('sence/ChannelManagement') }
+                            { path: 'index', name: '货柜管理', icon: 'ios-paper', component: _import('scene/ContainerManage') },
+                            { path: 'add', name: '添加货柜', icon: 'ios-paper', component: _import('scene/AddNewContainer') },
+                            { path: 'edit', name: '编辑货柜', icon: 'ios-paper', component: _import('scene/EditContainer') },
+                            { path: 'channel', name: '货道管理', icon: 'ios-paper', component: _import('scene/Channel') },
+                            { path: 'channel-management', name: '编辑货柜', icon: 'ios-paper', component: _import('scene/ChannelManagement') }
                         ] 
                     }  
                 ]
