@@ -33,7 +33,7 @@ module.exports = {
         //proxyTable: {},
         proxyTable: {
             '/yxkj-operation': {
-                target: 'http://shelf.ybjcq.com',       
+                target: 'http://machine.ybjcq.com',       
                 //target: 'http://127.0.0.1:8086',            
                 changeOrigin: true,
                 pathRewrite:{

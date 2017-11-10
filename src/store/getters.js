@@ -9,6 +9,7 @@ const getters = {
   siderbar_routers:state => state.user.siderbar_routers,
   areas:state => state.common.areas,
   selectedRow:state => state.common.selectedRow,
-  
+  payMethod:state => state.common.payMethod,
+  paymentTypes: state => state.common.paymentTypes
 };
 export default getters

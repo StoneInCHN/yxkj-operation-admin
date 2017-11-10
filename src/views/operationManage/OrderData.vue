@@ -4,35 +4,29 @@
         <p slot="title">
            <Icon type="android-people"></Icon>订单数据
         </p>
-        <Form :label-width="100" label-position="right" >
+        <Form :label-width="100" label-position="right" :model="formItem">
              <Row >
                 <Col span="6">
                     <FormItem label="优享空间名称:">
-                        <Input v-model="name" placeholder="请输入优享空间名称"></Input>
+                        <Input v-model="formItem.sceneName" placeholder="请输入优享空间名称"></Input>
                      </FormItem>
                  </Col>
                  <Col span="6">
                     <FormItem label="用户名:">
-                        <Input v-model="username" placeholder="请输入用户名"></Input>
+                        <Input v-model="formItem.username" placeholder="请输入用户名"></Input>
                      </FormItem>
                  </Col>
                 <Col span="6">
                     <FormItem label="购买方式:">
-                        <Select placeholder="请选择">
-                            <Option value="1">全部</Option>
-                            <Option value="2">扫码购买</Option>
-                            <Option value="3">输码购买</Option>
-                            <Option value="4">中控购买</Option>
-                            <Option value="5">线上货柜购买</Option>
+                        <Select placeholder="请选择" v-model="formItem.purMethod"> 
+                            <Option v-for="item in payMethods" :value="item.value" :key="item.value">{{item.name}}</Option>
                         </Select>
                     </FormItem>
                  </Col>
                  <Col span="6">
                     <FormItem label="支付方式:">
-                        <Select placeholder="支付方式">
-                            <Option value="1">全部</Option>
-                            <Option value="2">微信</Option>
-                            <Option value="3">支付宝</Option>
+                        <Select placeholder="支付方式" v-model="formItem.paymentTypeId">
+                             <Option v-for="item in paymentTypes" :value="item.value" :key="item.value">{{item.name}}</Option>
                         </Select>
                      </FormItem>
                  </Col>
@@ -40,16 +34,16 @@
             <Row>
                 <Col span="6">
                     <FormItem label="订单号:">
-                        <Input v-model="orderId" placeholder="请输入订单号"></Input>
+                        <Input  placeholder="请输入订单号" v-model="formItem.orderSn"></Input>
                      </FormItem>
                  </Col>
                 <Col span="7" >
                     <FormItem label="选择日期">
-                        <DatePicker type="daterange" placement="bottom-end" placeholder="选择日期" style="width: 200px"></DatePicker>
+                        <DatePicker type="daterange" placement="bottom-end" v-model="formItem.daterange" placeholder="选择日期" style="width: 200px"></DatePicker>
                     </FormItem>
                 </Col>
                  <Col span="6">
-                    <Button type="primary" icon="ios-search" class="search-btn">搜索</Button>
+                    <Button type="primary" icon="ios-search" class="search-btn" @click="search">搜索</Button>
                  </Col>
             </Row>
         </Form>
@@ -62,53 +56,60 @@
             <Button type="ghost" >已完成</Button>
             <Button type="ghost" >未支付</Button>
         </div>
-        <Table :columns="columns1" :data="data1" align="center"></Table>
-        <Page :current="2" :total="50" show-elevator ></Page>
+        <Table :columns="columns" :data="lists" align="center"></Table>
+         <Page :current="page.pageNumber" :total="page.total" show-elevator @on-change="changePage"></Page>
         <div class="clearfix"></div>
     </Card>
 </div>
 </template>
 
 <script>
+    import {getOrderList, getOrderDetail} from 'api/order'
     export default{
        data () {
             return {
-                 columns1: [
+                formItem: {},
+                page:{
+                    pageNumber: 1,
+                    pageSize: 10,
+                    total: 0
+                },
+                columns: [
                     {
                         title: '订单号',
-                        key: 'code'
+                        key: 'sn'
                     },
                     {
                         title: '用户名',
-                        key: 'name'
+                        key: 'endUser.userName'
                     },
                     {
                         title: '订单金额',
-                        key: 'acount'
+                        key: 'amount'
                     },
                      {
                         title: '商品数量',
-                        key: 'num'
+                        key: 'itemCount'
                     },
                     {
                         title: '优享空间',
-                        key: 'gendar'
+                        key: 'sceneName'
                     },
                     {
                         title: '订单状态',
-                        key: 'order_status'
+                        key: 'status'
                     },
                     {
                         title: '购买方式',
-                        key: 'shopping_method'
+                        key: 'purMethod'
                     },
                     {
                         title: '支付方式',
-                        key: 'pay_method'
+                        key: 'paymentType'
                     },
                     {
                         title: '订单时间',
-                        key: 'order_date'
+                        key: 'createDate'
                     },
                     {
                         title: '操作',
@@ -123,7 +124,7 @@
                                     },
                                     on: {
                                         click: () => {
-                                            const id = '123'
+                                            let id = params.row.id
                                             this.$router.push({ path: `order-data/${id}` })
                                         }
                                     }
@@ -132,39 +133,36 @@
                         }
                     }
                 ],
-                data1: [
-                    {
-                        code: '王小明',
-                        name: '王小明',
-                        pay_method: '北京市朝阳区芍药居',
-                        phone_num: '王小明',
-                        gendar: 18,
-                        belongs: '北京市朝阳区芍药居',
-                        channels: '王小明',
-                        orderId: '123'
-                    },
-                    {
-                        code: '王小明',
-                        name: '王小明',
-                        pay_method: '北京市朝阳区芍药居',
-                        phone_num: '王小明',
-                        gendar: 18,
-                        belongs: '北京市朝阳区芍药居',
-                        channels: '王小明',
-                        orderId: '123'
-                    },
-                    {
-                        code: '王小明',
-                        name: '王小明',
-                        pay_method: '北京市朝阳区芍药居',
-                        phone_num: '王小明',
-                        gendar: 18,
-                        belongs: '北京市朝阳区芍药居',
-                        channels: '王小明',
-                        orderId: '123'
-                    }
-                ]
+                lists: []
             }
+    },
+    mounted () {
+        this.list()
+    },
+    computed: {
+        payMethods () {
+            return this.$store.getters.payMethod
+        },
+        paymentTypes () {
+            return this.$store.getters.paymentTypes
+        }
+    },
+    methods: {
+        search () {
+            this.list(this.formItem)
+        },
+        list (filters) {
+            getOrderList(filters).then((res) => {
+                if (res.msg) {
+                    this.lists = res.msg
+                    this.page.total = res.page.total
+                }
+            })
+        },
+        changePage (currentPage) {
+            this.list(this.formItem)
+            this.page.pageNumber = currentPage
+        }
     }
 }
 </script>

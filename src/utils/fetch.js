@@ -51,3 +51,51 @@ export function fetch (url, params) {
   })
 }
 
+export function getPageParams(filters) {
+  let pageParams = {
+      pageNumber: 1,
+      pageSize: 10 ,
+      // userName: store.getters.user.userName
+  }
+  if(filters) {
+    for (let item in filters) {
+      if(filters[item]) {
+        if (item === 'daterange') {
+          if(filters[item][0]) {
+            pageParams.startTime = filters[item][0]
+          }
+          if(filters[item][1]) {
+            pageParams.endTime = filters[item][1]
+          }
+        } else {
+          pageParams[item] = filters[item]
+        }
+      }
+    }
+  }
+  return pageParams
+}
+
+export function getParams(filters) {
+  let commonParams = {
+      userName: store.getters.user.userName
+  }
+  if(filters) {
+    for (let item in filters) {
+      if(filters[item]) {
+        if (item === 'daterange') {
+          if(filters[item][0]) {
+            commonParams.startTime = filters[item][0]
+          }
+          if(filters[item][1]) {
+            commonParams.endTime = filters[item][1]
+          }
+        } else {
+          commonParams[item] = filters[item]
+        }
+      }
+    }
+  }
+  return commonParams
+}
+

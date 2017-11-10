@@ -42,4 +42,15 @@ export function updateScene(id,dataInfo) {
   return fetch('/yxkj-operation/admin/scene/updateScene.jhtml', data)
 }
 
+export function dropDownList(filterData) {
+  let params = {
+      userName: store.getters.user.userName
+  }
+  if (filterData) {
+    params.key = filter.key?filter.key:null
+    params.id = filter.id?filter.id:null
+  }
+  return fetch('/yxkj-operation/admin/scene/dropDownList', params)
+}
+
 
