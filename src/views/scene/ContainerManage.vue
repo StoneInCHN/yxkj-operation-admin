@@ -1,120 +1,194 @@
 <template>
 <Card>
     <Tabs value="name1">
-        <TabPane label="香年广场T2" name="name1">
+        <TabPane :label="sceneName" name="name1">
             <div class="btn-groups">
                 <div class="float-left">
                     <Button type="info"   @click="allowServicAction">允许服务</Button>
                     <Button type="success"  @click="stopServiceAction">停止服务</Button>
                 </div>
-                <div class="float-right">
-                    <Button type="success"  @click="addNewContainerAction">新增</Button>
-                    <Button type="error"  @click="deleteItem">删除</Button>
+                <div class="float-right">                    
+                    <router-link :to="{path:'/scene/containers/add',query: {sceneName: sceneName,sceneId: sceneId}}">
+                        <Button type="primary"  icon="android-add">新增</Button>
+                    </router-link>
+                    <Button type="success"  icon="trash-a" @click="deleteBatch">删除</Button>
+                    <Button type="info" icon="android-refresh" @click="refresh">刷新</Button>
                 </div>
              </div>
+             <div style="position:relative">
+                <Table border :columns="columns" :data="page_list" ref="table" @on-selection-change="onSelectionChange"></Table>
+                <div class="list-loadding" v-if="list_loadding">
+                            <Spin size="large"></Spin>
+                            <h6>正在获取数据...</h6>
+                </div>
+            </div>
             <div class="clearfix"></div>
-            <Table border ref="selection" :columns="columns4" :data="data1" ></Table>
-            <Page :current="2" :total="50"  show-elevator></Page>
         </TabPane>
     </Tabs>
 </Card>
 </template>
 
 <script>
+import { vendingContainerList,deleteContainer } from 'api/container';
     export default {
             data () {
             return {
+                sceneId:null,
+                selectedRow: {},
+                selectedRows: [],
+                page_list:[],
+                sceneName:'',
+                list_loadding: false,
                 modalDelete: false,
                 modal_loading: false,
-                columns4: [
+                columns: [
                     {
                         type: 'selection',
                         width: 60,
-                        align: 'center'
+                        align: 'center',
                     },
                     {
                         title: '货柜编号编号',
-                        key: 'container_num'
+                        key: 'sn',
+                        align: 'center',
                     },
                     {
                         title: '货柜类型',
-                        key: 'container_type'
+                        key: 'category.cateName',
+                        align: 'center',
+                        render: (h, params) => {
+                                return params.row.category.cateName;
+                        }
                     },
                     {
                         title: '货柜状态',
-                        key: 'container_status'
+                        key: 'status',
+                        align: 'center',
+                        render: (h, params) => {
+                                const status=params.row.status;
+                                if(status==='ACITVE'){                                  
+                                    return h('div', [h('Tag', {props: {type: 'border', color: "green"}}, "允许服务")]);
+                                }else if(status==='INACTIVE'){
+                                    return h('div', [h('Tag', {props: {type: 'border', color: "yellow"}}, "停止服务")]);
+                                }
+                        }
                     },
                     {
                         title: '预警值比例',
-                        key: 'bn'
+                        key: 'warningPer',
+                        align: 'center',
+                        render: (h, params) => {
+                                const warningPer=params.row.warningPer;
+                                if (warningPer) {
+                                    return warningPer+'%';
+                                }else{
+                                    return "-";
+                                }                                
+                        }
                     },
                     {
                         title: '操作',
-                        key: 'action',
+                        key: 'action', 
+                        align: 'center',                       
                         render: (h, params) => {
-                            return  h('div', [
-                                h('Button', {
-                                    props: {
-                                        type: 'info',
-                                        size: 'small'
-                                    },
-                                    style: {
-                                        marginRight: '5px'
-                                    },
-                                    on: {
-                                        click: () => {
-                                            this.editContainerAction()
+                            const warningPer=params.row.warningPer;
+                            if (warningPer) {
+                                return  h('div', [
+                                    h('Button', {
+                                        props: {
+                                            type: 'info',
+                                            size: 'small'
+                                        },
+                                        style: {
+                                            marginRight: '5px'
+                                        },
+                                        on: {
+                                            click: () => {
+                                                this.$router.push({path:'/scene/containers/edit/'+params.row.id })
+                                            }
                                         }
-                                    }
-                                }, '编辑'),
-                                h('Button', {
-                                    props: {
-                                        type: 'primary',
-                                        size: 'small'
-                                    },
-                                    style: {
-                                        marginRight: '5px'
-                                    },
-                                    on: {
-                                        click: () => {
-                                            this.containerManageAction(params.index)
+                                    }, '编辑'),
+                                    h('Button', {
+                                        props: {
+                                            type: 'primary',
+                                            size: 'small'
+                                        },
+                                        style: {
+                                            marginRight: '5px'
+                                        },
+                                        on: {
+                                            click: () => {
+                                                this.$router.push({path:'/scene/containers/channel/'+params.row.id })
+                                            }
                                         }
-                                    }
-                                }, '货道管理')
-                            ])
+                                    }, '货道管理')
+                                ]);
+                            } else {
+                                return "-";
+                            }
+                            
                         }
                     }
                 ],
-
-                data1: [
-                    {
-                        container_num: '123',
-                        container_type: '王小明',
-                        container_status: '北京市朝阳区芍药居',
-                    },
-                    {
-                        container_num: '123',
-                        container_type: '王小明',
-                        container_status: '北京市朝阳区芍药居',
-                    }
-                ]
             }
         },
         methods: {
+            refresh () {
+              this.changePage();
+            },
+            changePage(){
+              const vue = this;
+              this.list_loadding=true;
+              this.getPageList()
+            },
+            getPageList() {                
+                vendingContainerList(this.sceneId).then(response => {                    
+                    if (response.code === '0000') {
+                        this.page_list = response.msg;
+                        if (this.page_list && this.page_list.length > 0) {
+                            this.sceneName = this.page_list[0].scene.name
+                        }                        
+                        this.list_loadding=false;
+                    }                
+                }).catch(error => {
+                    console.log(error)
+                });
+            }, 
+            deleteBatch () {
+              if (this.selectedRows.length == 0) {
+                  this.$Message.warning('请选择要删除的项!');
+              }else{
+                this.$Modal.confirm({
+                  title:'提示',
+                  content:'删除优享空间会同时删除其中的货柜，请确认要删除选中的这 <b style="color:#f60">'+this.selectedRows.length+'</b> 个优享空间吗?',
+                  onOk:(()=>{
+                      var ids = [];
+                      for (var i = 0; i < this.selectedRows.length; i++) {
+                        ids.push(this.selectedRows[i].id);
+                      }                      
+                      deleteContainer(ids).then(response => {
+                        if (response.code === '0000') {
+                            this.changePage();                           
+                        }
+                        this.$Message.info(response.desc);             
+                      }).catch(error => {
+                          this.$Message.info('请求异常');
+                      });
+                  })
+                });
+              }
+            },
+            onSelectionChange(selection, row) {
+              this.selectedRows= selection;
+            },
+            add () {
+                this.$router.push({path:'/scene/containers/add/'+this.sceneName});
+            }, 
             allowServicAction() {
                 },
             stopServiceAction() {
                 },
-            addNewContainerAction() {
-                this.$router.push({
-                    path: 'add'
-                })
-            },
-             editContainerAction() {
-                    this.$router.push({
-                        path: 'edit'
-                    })
-            },
+
             delteContainerAction() {
                 console.log('delteContainerAction')
                 this.modal_loading = true
@@ -123,9 +197,6 @@
                     this.modalDelete = false
                     this.$Message.success('删除成功');
                 }, 2000);
-            },
-            containerManageAction(index) {
-                this.$router.push({ path: 'channel'})
             },
             warningSettingAction() {
                 this.$router.push({
@@ -137,18 +208,12 @@
                         path: 'container-type-manage'
                     })
             },
-            deleteItem () {
-                this.$Modal.confirm({
-                    title: '系统提示',
-                    content: '<p>确认删除香年广场T2的A1货柜？</p>',
-                    onOk: () => {
-                        this.$Message.info('点击了确定');
-                    },
-                    onCancel: () => {
-                        this.$Message.info('点击了取消');
-                    }
-                });
-            }
+        },
+        mounted(){
+            this.changePage();
+        },
+        created(){   
+             this.sceneId = this.$route.params.id;                 
         }
 
     }

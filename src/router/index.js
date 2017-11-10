@@ -90,16 +90,16 @@ export const asyncRouterMap = [{
                         name: '货柜管理',
                         icon: 'android-people',
                         hidden: true,
-                        redirect: '/scene/containers/index',
+                        redirect: '/scene/containers/index/:id',
                         component: {
                             render(c) { return c('router-view') }
                         },
                         children: [
-                            { path: 'index', name: '货柜管理', icon: 'ios-paper', component: _import('scene/ContainerManage') },
+                            { path: 'index/:id', name: '货柜管理', icon: 'ios-paper', component: _import('scene/ContainerManage') },
                             { path: 'add', name: '添加货柜', icon: 'ios-paper', component: _import('scene/AddNewContainer') },
-                            { path: 'edit', name: '编辑货柜', icon: 'ios-paper', component: _import('scene/EditContainer') },
-                            { path: 'channel', name: '货道管理', icon: 'ios-paper', component: _import('scene/Channel') },
-                            { path: 'channel-management', name: '编辑货柜', icon: 'ios-paper', component: _import('scene/ChannelManagement') }
+                            { path: 'edit/:id', name: '编辑货柜', icon: 'ios-paper', component: _import('scene/EditContainer') },
+                            { path: 'channel/:id', name: '货道管理', icon: 'ios-paper', component: _import('scene/Channel') },
+                            { path: 'channel-management/:id', name: '编辑货柜', icon: 'ios-paper', component: _import('scene/ChannelManagement') }
                         ] 
                     }  
                 ]

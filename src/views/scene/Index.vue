@@ -169,7 +169,7 @@ import rowExpand from './SceneExpand.vue';
                                     },
                                     on: {
                                         click: () => {
-                                            this.containerManageAction(params.row.id)
+                                            this.$router.push({path:'/scene/containers/index/'+params.row.id })
                                         }
                                     }
                                 }, '货柜管理')
@@ -249,25 +249,6 @@ import rowExpand from './SceneExpand.vue';
                 },
             addNewSecnceAction() {
                 this.$router.push({path: 'add'})
-            },
-            //  editSecnceAction() {
-            //         this.$router.push({
-            //             path: 'edit-sence'
-            //         })
-            // },
-            delteContainerAction() {
-                console.log('delteContainerAction')
-                this.modal_loading = true
-                setTimeout(() => {
-                    this.modal_loading = false;
-                    this.modalDelete = false
-                    this.$Message.success('删除成功');
-                }, 2000);
-            },
-            containerManageAction(senceId) {
-                 this.$router.push({
-                        path: 'containers'
-                    })
             },
         },
         mounted(){
